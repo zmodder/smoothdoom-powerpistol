@@ -92,3 +92,4 @@ $limit world/lavasizzlesmall 4
 // powerpistol modifications
 /////////////////////////////
 weapons/ppstol          d3pistol
+grunt/pattack           dsgnfire
