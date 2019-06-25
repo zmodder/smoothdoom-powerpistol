@@ -93,3 +93,6 @@ $limit world/lavasizzlesmall 4
 /////////////////////////////
 weapons/ppstol          d3pistol
 grunt/pattack           dsgnfire
+chainguy/attack         dspistol
+wolfss/attack           dspistol
+spider/attack           d3chngun
