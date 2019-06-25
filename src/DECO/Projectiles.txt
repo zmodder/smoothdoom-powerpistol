@@ -1,0 +1,219 @@
+ACTOR smoothrevball : revenanttracer replaces revenanttracer
+{
+	decal revenantscorch
+	states
+	{
+	Death:
+    RBXP A 2 Bright
+    RBXP B 2 Bright
+    RBXP C 2 Bright
+	RBXP D 2 Bright
+	RBXP E 2 bright
+	RBXP F 2 bright
+    Stop
+	}
+}
+
+ACTOR smoothfatshot : fatshot replaces fatshot
+{
+	decal scorch
+	states
+	{
+	death: 
+	expl a 3 bright
+	expl b 2 bright
+	expl c 2 bright
+	expl d 2 bright
+	expl e 2 bright
+	expl f 2 bright
+	stop
+	}
+}
+
+ACTOR smoothbooger : baronball replaces baronball
+{
+	decal baronscorch
+	states
+	{
+	death:
+	boog abcdefgi 2 bright
+	stop
+	}
+}
+
+ACTOR smoothblueplasma : plasmaball replaces plasmaball
+{
+decal doomimpscorch
+states
+	{
+	spawn:
+		TNT1 A 0
+		TNT1 A 0 A_JumpIf(CallACS("Sparkletoggle")==1, "fancyspawn")
+		BLPL abcdabcd 2 bright
+		loop
+	fancyspawn:
+		TNT1 A 0
+		BLPL a 2 bright A_SpawnItemEx("BlueSparkle", random(-20, 20), random(-20, 20), random(0, 20))
+		BLPL b 2 bright
+		BLPL c 2 bright A_SpawnItemEx("BlueSparkle", random(-20, 20), random(-20, 20), random(0, 20))
+		BLPL d 2 bright
+		loop
+	death:
+		SPLS abcdefghijkl 2 bright
+		stop
+	}
+}
+
+ACTOR smoothimpball : doomimpball replaces doomimpball
+{
+Game Doom
+	SpawnID 10
+	Radius 6
+	Height 8
+	Speed 10
+	FastSpeed 20
+	Damage 3
+	Projectile
+	+RANDOMIZE
+	RenderStyle Add
+	decal doomimpscorch
+	Alpha 1
+	SeeSound "imp/attack"
+	DeathSound "imp/shotx"
+	States
+	{
+	spawn:
+	BIMP abcdef 2 bright
+	loop
+	death:
+	IPRD abcdefgh 2 bright
+	stop
+	}
+}
+
+ACTOR smoothbabyplas : arachnotronplasma replaces arachnotronplasma
+{
+decal doomimpscorch
+states
+	{
+	spawn:
+	BAPL abcdefgh 2 bright
+	loop
+	death:
+	GPLD abcefghijklm 2 bright
+	stop
+	}
+}
+
+ACTOR smoothBFGball : BFGball replaces BFGball
+{
+decal BFGlightning
+states
+{
+	spawn:
+	TNT1 A 0
+	TNT1 A 0 A_JumpIf(CallACS("Sparkletoggle")==1, "fancyspawn")
+	FUCK abcd 2 bright
+	loop
+	fancyspawn:
+	TNT1 A 0
+	FUCK abcd 2 bright A_SpawnItemEx("GreenSparkle", random(-40, 40), random(-40, 40), random(0, 30))
+	loop
+	death:
+	TNT1 A 0 A_JumpIf(CallACS("RumbleToggle")==1, "QuakeDeath")
+	BFGB abcde 2 bright
+	BFGB f 1 bright
+	BFGB f 3 bright a_BFGspray
+	BFGB ghijk 3 bright
+	stop
+	quakedeath:
+	expl d 0 a_quake (3,10,0,750,0)
+	expl d 0 a_quake (1,25,0,1000,0)
+	BFGB abcde 2 bright
+	BFGB f 1 bright
+	BFGB f 3 bright a_BFGspray
+	BFGB ghijk 3 bright
+	stop
+	}
+}
+
+ACTOR smoothBFGextra : BFGextra replaces BFGextra
+{
+states
+	{
+	spawn:
+	BFEX abcdefghijklmno 2 bright
+	stop
+	}
+}
+	
+ACTOR smoothcacoball : CacodemonBall replaces CacodemonBall
+{
+decal CacoScorch
+states
+	{
+	spawn:
+	CABA abcd 2 bright
+	loop
+	death:
+	CABX a 4 bright
+	CABX bcdef 2 bright
+	stop
+	}
+}
+
+ACTOR SmoothRocket Replaces Rocket
+{
+	Game Doom
+	SpawnID 127
+	Radius 11
+	Height 8
+	Speed 20
+	Damage 20
+	Projectile
+	+RANDOMIZE
+	+ROCKETTRAIL
+	+EXTREMEDEATH
+	decal scorch
+	SeeSound "weapons/rocklf"
+	DeathSound "weapons/rocklx"
+	Obituary "$OB_MPROCKET"
+	States
+	{
+	Spawn:
+		MISL A 1 Bright
+		Loop
+	Death:
+		TNT1 A 0 A_JumpIf(CallACS("DukeToggle")==1, "dukedeath")
+		TNT1 A 0 A_JumpIf(CallACS("RumbleToggle")==1, "QuakeDeath")
+		expl A 5 Bright A_Explode
+		expl BCDEF 3 Bright A_SpawnItemEx("RocketSmokeTrail", random(-40, 40), random(-40, 40), random(0, 30))
+		TNT1 AAAA 0 A_SpawnItemEx("RocketSmokeTrail", random(-40, 40), random(-40, 40), random(0, 30))
+		Stop
+	QuakeDeath:
+		TNT1 A 0 A_JumpIf(CallACS("DukeToggle")==1, "dukedeath")
+		expl A 5 Bright A_Explode
+		expl d 0 a_quake (3,10,0,750,0)
+		expl d 0 a_quake (1,25,0,1000,0)
+		expl BCDEF 3 Bright A_SpawnItemEx("RocketSmokeTrail", random(-40, 40), random(-40, 40), random(0, 30))
+		TNT1 AAAA 0 A_SpawnItemEx("RocketSmokeTrail", random(-40, 40), random(-40, 40), random(0, 30))
+		Stop
+	DukeDeath:
+		TNT1 A 0 A_JumpIf(CallACS("RumbleToggle")==1, "quakedukedeath")
+		rexp o 2 Bright A_Explode
+		rexp ABCDEFGHIJKL 2 Bright
+		rexp M 2 A_SpawnItemEx("RocketSmokeTrail", random(-40, 40), random(-40, 40), random(0, 30))
+		rexp N 2 A_SpawnItemEx("RocketSmokeTrail", random(-40, 40), random(-40, 40), random(0, 30))
+		TNT1 AAAA 0 A_SpawnItemEx("RocketSmokeTrail", random(-40, 40), random(-40, 40), random(0, 30))
+		Stop
+	QuakeDukeDeath:
+		rexp o 2 Bright A_Explode
+		expl d 0 a_quake (3,10,0,750,0)
+		expl d 0 a_quake (1,25,0,1000,0)
+		rexp ABCDEFGHIJKL 2 Bright
+		rexp M 2 A_SpawnItemEx("RocketSmokeTrail", random(-40, 40), random(-40, 40), random(0, 30))
+		rexp N 2 A_SpawnItemEx("RocketSmokeTrail", random(-40, 40), random(-40, 40), random(0, 30))
+		TNT1 AAAA 0 A_SpawnItemEx("RocketSmokeTrail", random(-40, 40), random(-40, 40), random(0, 30))
+		Stop
+	}
+}

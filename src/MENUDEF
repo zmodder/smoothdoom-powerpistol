@@ -1,0 +1,120 @@
+OptionValue PocketFullaShells
+{
+	0.0, "None"
+	1.0, "Player Only"
+	2.0, "Player And Monster"
+}
+
+//////////////////
+//WEAPON OPTIONS//
+//////////////////
+
+OptionValue DanzigSongReference
+{
+	0.0, "Brown"
+	1.0, "Black"
+}
+
+OptionValue Leatherface
+{
+	0.0, "Standard Issue"
+	1.0, "Doom64"
+}
+
+OptionValue PistolWhip
+{
+	0.0, "Standard Issue"
+	1.0, "Doom64"
+}
+
+OptionValue ShotgunWedding
+{
+	0.0, "Standard Issue"
+	1.0, "Doom64"
+}
+
+OptionValue ShotgunShack
+{
+	0.0, "Standard Issue"
+	1.0, "Doom64"
+}
+
+OptionValue ChainGang
+{
+	0.0, "Standard Issue"
+	1.0, "Doom64"
+}
+
+OptionValue RocketInTheFreeWorld
+{
+	0.0, "Standard Issue"
+	1.0, "Doom64"
+}
+
+
+OptionMenu "OptionsMenu"
+{
+	Title "OPTIONS"
+	Submenu "Customize Controls",		"CustomizeControls"
+	Submenu "Mouse options",			"MouseOptions"
+	Submenu "Joystick options",			"JoystickOptions"
+	StaticText " "
+	Submenu "Player Setup",				"PlayerMenu"
+	Submenu "Gameplay Options",			"GameplayOptions"
+	Submenu "Compatibility Options",	"CompatibilityOptions"
+	Submenu "Automap Options",			"AutomapOptions"
+	Submenu "HUD Options",				"HUDOptions"
+	Submenu "Miscellaneous Options",	"MiscOptions"
+	Submenu "Sound Options",			"SoundOptions"
+	Submenu "Display Options",			"VideoOptions"
+	Submenu "Set video mode",			"VideoModeMenu"
+	Submenu "Smooth Doom Options",		"SmoothDoom"
+	StaticText " "
+	SafeCommand "Reset to defaults",	"reset2defaults"
+	SafeCommand	"Reset to last saved",	"reset2saved"
+	Command "Go to console",			"menuconsole"
+}
+
+OptionMenu "smoothdoom"
+{
+title "Smooth Doom Options"
+
+
+StaticText " "
+option "Alternate Armor Bonus", "botoggle", "onoff"
+option "Blood Splats", "bstoggle", "onoff"
+option "Doom64-Style Items", "putoggle", "onoff"
+option "Duke Nukem Explosions", "dutoggle", "onoff"
+option "Explosion Screenshake", "rmtoggle", "onoff"
+option "Fancy Bullet Puffs", "pftoggle", "onoff"
+option "Fancy Torches", "totoggle", "onoff"
+option "Rotating Keys", "krtoggle", "onoff"
+option "Pain Elemental Gibs", "gotoggle", "onoff"
+option "SSG Gibs", "ggtoggle", "onoff"
+StaticText " "
+StaticText "Variation Settings",1
+option "Decoration Variants", "dctoggle", "onoff"
+option "Monster Death Variants", "mdtoggle", "onoff"
+option "Monster Skin Variants", "vatoggle", "onoff"
+StaticText " "
+StaticText "Gameplay Settings",1
+option "Fast Pinky", "pitoggle", "onoff"
+option "Zombieman Drops Rifle", "ritoggle", "onoff"
+StaticText " "
+StaticText "Weapon Settings",1
+option "Smooth Bobbing", "bbtoggle","onoff"
+option "Glove Color", "gltoggle","DanzigSongReference"
+option "Plasma Sparkles", "sptoggle", "onoff"
+option "Shell Casings",	"catoggle","PocketFullaShells"
+option "Visual Recoil", "retoggle","onoff"
+StaticText " "
+option "Chainsaw Skin", "swtoggle", "Leatherface"
+option "Pistol Skin", "pstoggle", "PistolWhip"
+option "Shotgun Skin", "sgtoggle", "ShotgunWedding"
+option "Super Shotgun Skin", "sstoggle","ShotgunShack"
+option "Chaingun Skin", "chtoggle","ChainGang"
+option "Rocket Launcher Skin", "rotoggle", "RocketInTheFreeWorld"
+
+}
+
+	

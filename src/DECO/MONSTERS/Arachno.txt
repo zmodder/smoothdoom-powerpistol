@@ -1,0 +1,46 @@
+ACTOR smootharachno : arachnotron replaces arachnotron
+{
+	states
+	{
+	spawn:
+		ARID ab 5 a_look
+		loop
+	see:
+		ARAC a 20
+		ARAC a 3 a_babymetal
+		ARAC bcdee 3 a_chase
+		ARAC f 3 a_babymetal
+		ARAC ghijj 3 a_chase
+		goto see+1
+	pain:
+		ARPA a 3
+		ARPA b 3 a_pain
+		goto see+1
+	missile:
+		DUMB a 20 a_facetarget
+		ARAT a 3 bright A_BspiAttack
+		ARAT b 3 bright
+		ARAT c 3 bright a_SpidRefire
+		goto missile+1
+	death:
+		TNT1 a 0 A_JumpIfHealthLower(-30,"Gibdeath")
+		sarz a 3
+		sarz b 3 a_scream
+		sarz c 3 a_noblocking
+		sarz defghijkl 3
+		sarz m -1 a_bossdeath
+		stop
+	gibdeath:
+		ARXD a 3
+		ARXD b 3 a_scream
+		ARXD cd 2 a_noblocking
+		TNT1 AAAAAAAAAAAAAAA 0 A_CustomMissile ("Gibs1", 32, 0, random (0, 360), 2, random (0, 160))
+		TNT1 AA 0 A_CustomMissile ("Gibs2", 32, 0, random (0, 360), 2, random (0, 160))
+		TNT1 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA 0 A_SpawnItem("XBlood2", 0, 40)
+		ARXD e 3
+		ARXD fghi 3
+		ARXD jk 4
+		ARXD l -1 a_bossdeath
+		stop
+	}
+}
