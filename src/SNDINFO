@@ -87,3 +87,8 @@ $limit world/sludgegloopsmall 4
 $limit world/lavasizzle 4
 $limit world/lavsiz2 4
 $limit world/lavasizzlesmall 4
+
+/////////////////////////////
+// powerpistol modifications
+/////////////////////////////
+weapons/ppstol          d3pistol

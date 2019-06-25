@@ -28,8 +28,13 @@ ACTOR PerkPistol : Pistol replaces Pistol
 		TNT1 A 0 A_JumpIf(CallACS("RecoilToggle")==1, "RecoilFire")
 		TNT1 A 0 A_JumpIf(CallACS("CasingToggle")==1, "CaseFire")
 		TNT1 A 0 A_JumpIf(CallACS("CasingToggle")==2, "CaseFire")
-		PKPI A 4 
-		PKPI B 0 A_FirePistol 
+		PKPI A 4
+                //////////////////////////
+		//PKPI B 0 A_FirePistol
+                PKPI B 0 A_FireBullets (5.6, 0, 1, 7, "BulletPuff")
+                PKPI B 0 A_PlaySound ("weapons/ppstol", CHAN_WEAPON)
+                PKPI B 6 A_GunFlash
+                //////////////////////////
 		PKPI B 2
 		PKPI C 3
 		PKPI D 1
@@ -47,7 +52,12 @@ ACTOR PerkPistol : Pistol replaces Pistol
 		TNT1 A 0 A_JumpIf(CallACS("CasingToggle")==2, "RecoilCaseFire")
 		TNT1 A 0 A_JumpIf(CallACS("GloveToggle")==1, "BLRecoilFire")
 		PKPI A 4
-		PKPI B 0 A_FirePistol 
+                /////////////////////////////
+		//PKPI B 0 A_FirePistol
+                PKPI B 0 A_FireBullets (5.6, 0, 1, 7, "BulletPuff")
+                PKPI B 0 A_PlaySound ("weapons/ppstol", CHAN_WEAPON)
+                PKPI B 6 A_GunFlash
+                //////////////////////////
 		PKPI B 2 a_setpitch (pitch-0.2)
 		PKPI C 3 a_setpitch (pitch-0.2)
 		PKPI D 1 a_setpitch (pitch-0.1)
@@ -64,7 +74,12 @@ ACTOR PerkPistol : Pistol replaces Pistol
 		TNT1 A 0 A_JumpIf(CallACS("RecoilToggle")==1, "RecoilCaseFire")
 		TNT1 A 0 A_JumpIf(CallACS("GloveToggle")==1, "BLCaseFire")
 		PKPI A 4
-		PKPI B 0 A_FirePistol 
+                ////////////////////////////
+		//PKPI B 0 A_FirePistol 
+                PKPI B 0 A_FireBullets (5.6, 0, 1, 7, "BulletPuff")
+                PKPI B 0 A_PlaySound ("weapons/ppstol", CHAN_WEAPON)
+                PKPI B 6 A_GunFlash
+                //////////////////////////
 		PKPI B 0 A_spawnitemex ("bulletcasing", 40, 0, 25, random(4,6), random(7,8), random(7,9), 0)
 		PKPI B 2
 		PKPI C 3
@@ -80,7 +95,12 @@ ACTOR PerkPistol : Pistol replaces Pistol
 		TNT1 A 0 a_jumpif(callacs("BobToggle")==1, "bobrecoilcasefire")
 		TNT1 A 0 a_jumpif(callacs("PistolToggle")==1, "64recoilcasefire")
 		PKPI A 4
-		PKPI B 0 A_FirePistol 
+                ////////////////////////////
+		//PKPI B 0 A_FirePistol 
+                PKPI B 0 A_FireBullets (5.6, 0, 1, 7, "BulletPuff")
+                PKPI B 0 A_PlaySound ("weapons/ppstol", CHAN_WEAPON)
+                PKPI B 6 A_GunFlash
+                //////////////////////////
 		PKPI B 0 A_spawnitemex ("bulletcasing", 40, 0, 25, random(4,6), random(7,8), random(7,9), 0)
 		PKPI B 2 a_setpitch (pitch-0.2)
 		PKPI C 3 a_setpitch (pitch-0.2)
