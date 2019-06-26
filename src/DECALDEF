@@ -6,6 +6,7 @@
  * when something bleeds. If a blood color is set, the shade color will be ignored,
  * and the actor's blood color will be used instead.
  */
+ 
 decal BlueBloodSplat1
 {
 	pic BSPLAT1

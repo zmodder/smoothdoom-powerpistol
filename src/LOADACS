@@ -1,30 +1,23 @@
-bloodspot
-casings
-64saw
-64PS
-64Shot
-64CG
-64Picks
-64rocket
-64SSG
-deco
-EXFX
-MoDeath
-Puff
-Torches
-KeyRotate
-paingore
-variantmonsters
-Deafness
-GunRecoil
-WaterCheck
-FastPinky
-DukeSplosions
-Sparkles
-RifleDrop
-LeftHandBlack
-helmbonus
-SSGgibs
-MeltCheck
-Rumble
-Bobbles
+PARTICLES //toggles fancy particle effects
+GORE //toggles enhanced gore effects
+
+deco //toggles randomized decoration sprites
+EXFX //I don't remember what this one does!
+MoDeath //toggles extra death animations
+64picks //toggles Doom64-style pickups
+variantmonsters //toggles monster variant skins
+Deafness //checks for ambush flag, makes variant skins work
+WaterCheck //checks water level so that smaller objects can disappear into it
+helmbonus //toggles alternate armor bonus sprite
+MeltCheck //toggles enemies melting into liquid flats on death (unfinished)
+Rumble //toggles screenshake on explosions
+
+REBALANCE //toggles faster pinky demon
+RifleDrop //toggles zombiemen dropping rifles
+
+GunRecoil //toggles gun recoil effect
+ChainsawGib //chainsaw gibs enemies
+SSGgibs //toggles SSG always gibbing enemies at point-blank range
+Bobbles //toggles smooth weapon bobbing
+Wepstyle //toggles the current weapon-set style
+casings //toggles bullet casings

@@ -1,249 +1,446 @@
-ACTOR Gibs1
+//a dummy actor serving as a navigational marker//
+//////////////////////////////////////////////////
+ACTOR -------CONTROLLERS------- {}
+//////////////////////////////////////////////////
+
+ACTOR GoreController
+{
+	states
+	{
+	spawn:
+		TNT1 a 0 nodelay a_playsound("gore/loudslop",0)
+		TNT1 a 0 a_jump(128,+2)
+		TNT1 A 0 A_CustomMissile ("Skull", 32, 0, random (0, 360), 2, random (0, 160))
+		goto finish
+		TNT1 A 0 A_CustomMissile ("Brain", 32, 0, random (0, 360), 2, random (0, 160))	
+		goto finish
+	finish:
+		TNT1 AAAAAAA 0 A_CustomMissile ("Gibs1", 32, 0, random (0, 360), 2, random (0, 160))
+		TNT1 AAA 0 A_CustomMissile ("Gibs2", 32, 0, random (0, 360), 2, random (0, 160))
+		TNT1 AAAAAAAAA 1 A_SpawnItem("XBlood", 0, 40)
+		stop
+	}
+}
+
+ACTOR BigGoreController
+{
+	states
+	{
+	spawn:
+		TNT1 a 0 nodelay a_playsound("gore/loudslop",0)
+		TNT1 AAAAAAAAAA 0 A_CustomMissile ("Gibs1", 32, 0, random (0, 360), 2, random (0, 160))
+		TNT1 AAAAAA 0 A_CustomMissile ("Gibs2", 32, 0, random (0, 360), 2, random (0, 160))
+		TNT1 AAAAAAAAAAAA 1 A_SpawnItem("XBlood", 0, 40)
+		stop
+	}
+}
+
+
+ACTOR PainElementalGoreController
+{
+	states
+	{
+	spawn:
+		TNT1 AAAAAAA 1 A_CustomMissile ("XBlood", 32, 0, random (0, 360), 2, random (0, 160))
+		TNT1 AAAAAAAAAAAAAAAAA 0
+			{
+			A_CustomMissile ("Gibs1", 32, 0, random (0, 360), 2, random (0, 160));
+			A_CustomMissile ("Gibs2", 32, 0, random (0, 360), 2, random (0, 160));
+			}
+		stop
+	}
+}
+
+ACTOR CacoGoreController
+{
+	states
+	{
+	spawn:
+		TNT1 a 0 nodelay a_playsound("gore/loudslop",0)
+		TNT1 A 0 A_CustomMissile ("CacoEye", 32, 0, random (0, 360), 2, random (0, 160))		
+		TNT1 AAAAAAAAAAA 0 A_CustomMissile ("SmallCacoChunks", 32, 0, random (0, 360), 2, random (0, 160))		
+		TNT1 AAAAA 0 A_CustomMissile ("CacoChunks", 32, 0, random (0, 360), 2, random (0, 160))		
+		TNT1 AAAAAAAA 0 A_CustomMissile ("blueGibs1", 32, 0, random (0, 360), 2, random (0, 160))
+		TNT1 AAAA 0 A_CustomMissile ("blueGibs2", 32, 0, random (0, 360), 2, random (0, 160))
+		TNT1 AAAAAAAAAAAA 1 A_SpawnItem("blueBlood", 0, 40)
+		stop
+	}
+}
+
+ACTOR GreenGoreController
+{
+	states
+	{
+	spawn:
+		TNT1 a 0 nodelay a_playsound("gore/loudslop",0)
+		TNT1 AAAAAAAAAA 0 A_CustomMissile ("greenGibs1", 32, 0, random (0, 360), 2, random (0, 160))
+		TNT1 AAAAAA 0 A_CustomMissile ("greenGibs2", 32, 0, random (0, 360), 2, random (0, 160))
+		TNT1 AAAAAAAAAAAA 1 A_SpawnItem("greenBlood", 0, 40)
+		stop
+	}
+}
+
+//a dummy actor serving as a navigational marker//
+//////////////////////////////////////////////////
+ACTOR -------GIBLETS------- {}
+//////////////////////////////////////////////////
+
+ACTOR Gibs1 //small gibs
 {
     Radius 3
     Height 3
-    Speed 7
+	gravity 0.5
+    Speed 6
     Scale 1.0
 	Mass 1
     +NOBLOCKMAP
 	+MISSILE
     +NOTELEPORT
+	+THRUACTORS
     +MOVEWITHSECTOR
     +CLIENTSIDEONLY
     +BLOODLESSIMPACT 
-	+DONTSPLASH
 	+FLOORCLIP
 	Decal Bloodsmear
-	Gravity 0.7
     States
     {
     Spawn:
-		GIBS C 3
-        Loop
-    Death:
+		GIBY abc 4 a_spawnitemex("juicyblood",random(-1,1),random(-1,1),random(-1,1),random(-1,1),random(-1,1),-1,random(0,360))
+		GIBS defg 4 a_spawnitemex("juicyblood",random(-1,1),random(-1,1),random(-1,1),random(-1,1),random(-1,1),-1,random(0,360))
+		goto spawn+1
+	Death:
+        TNT1 A 0 A_JumpIf(CallACS("LiquidCheck"),"Disappear")
+		TNT1 a 0 a_playsound("gore/blech", 0, 0.6)
+        TNT1 A 0 A_Jump(255, "Death1", "Death2", "Death3","Death4","Death5","Death6","Death7","Death8","Death9","Death10","Death11","Death12","Death13")
+		goto death1
+	Death1:
         TNT1 A 0 A_JumpIf(CallACS("LiquidCheck"),"Disappear")
 		GIBS B 3
 		GIBS B -1
         Stop
+	Death2:
+        TNT1 A 0 A_JumpIf(CallACS("LiquidCheck"),"Disappear")
+		GIBS D 3
+		GIBS D -1
+        Stop
+	Death3:
+        TNT1 A 0 A_JumpIf(CallACS("LiquidCheck"),"Disappear")
+		GIBS E 3
+		GIBS E -1
+        Stop
+	Death4:
+        TNT1 A 0 A_JumpIf(CallACS("LiquidCheck"),"Disappear")
+		GIBS F 3
+		GIBS F -1
+        Stop
+	Death5:
+        TNT1 A 0 A_JumpIf(CallACS("LiquidCheck"),"Disappear")
+		GIBS G 3
+		GIBS G -1
+        Stop
+	Death6:
+        TNT1 A 0 A_JumpIf(CallACS("LiquidCheck"),"Disappear")
+		GIBS H 3
+		GIBS H -1
+        Stop
+	Death7:
+        TNT1 A 0 A_JumpIf(CallACS("LiquidCheck"),"Disappear")
+		BLD1 A 3
+		BLD1 A -1
+        Stop
+	Death8:
+        TNT1 A 0 A_JumpIf(CallACS("LiquidCheck"),"Disappear")
+		GIBS J 3
+		GIBS J -1
+        Stop
+	Death9:
+        TNT1 A 0 A_JumpIf(CallACS("LiquidCheck"),"Disappear")
+		GIBS K 3
+		GIBS K -1
+        Stop
+	Death10:
+        TNT1 A 0 A_JumpIf(CallACS("LiquidCheck"),"Disappear")
+		GIBS L 3
+		GIBS L -1
+        Stop
+	Death11:
+        TNT1 A 0 A_JumpIf(CallACS("LiquidCheck"),"Disappear")
+		BLD1 b 3
+		BLD1 b -1
+        Stop
+	Death12:
+        TNT1 A 0 A_JumpIf(CallACS("LiquidCheck"),"Disappear")
+		BLD1 c 3
+		BLD1 c -1
+        Stop
+	Death13:
+        TNT1 A 0 A_JumpIf(CallACS("LiquidCheck"),"Disappear")
+		BLD1 D 3
+		BLD1 O -1
+        Stop
 	Disappear:
-		TNT1 A 1
+		TNT1 a 0
 		stop
     }
+}
+
+ACTOR Gibs2: Gibs1 //big gibs
+{
+    States
+    {
+    Spawn:
+		GIBY defg 3 a_spawnitemex("flyingblood",random(-1,1),random(-1,1),random(-1,1),random(-1,1),random(-1,1),-1,random(0,360))
+        Loop
+    Death:
+        TNT1 A 0 A_JumpIf(CallACS("LiquidCheck"),"Disappear")
+		TNT1 a 0 a_jump(128,"death2")
+		POL5 A 3
+		POL5 A -1
+        Stop
+	Death2:
+		POB1 a -1
+		stop
+		}
 }
 
 ACTOR BlueGibs1: Gibs1
 {
 	decal bluebloodsmear
 	translation "32:47=240:243", "176:191=199:207"
+	states
+	{
+   Spawn:
+		GIBS C 2 a_spawnitemex("bluejuicyblood",random(-1,1),random(-1,1),random(-1,1),random(-1,1),random(-1,1),-1,random(0,360))
+        Loop	
+	}
+}
+
+
+
+ACTOR BlueGibs2: Gibs2
+{
+	decal bluebloodsmear
+	translation "32:47=240:243", "176:191=199:207", "16:31=114:117"
+	states
+	{
+	Spawn:
+		GIBS C 1 a_spawnitemex("blueflyingblood",random(-1,1),random(-1,1),random(-1,1),random(-1,1),random(-1,1),-1,random(0,360))
+		Loop
+	}
 }
 
 ACTOR GreenGibs1: Gibs1
 {
 	decal greenbloodsmear
-	translation "172:191=118:123","23:47=119:127","160:167=112:119"
-}
-
-ACTOR Gibs2: Gibs1
-{
-    States
-    {
-    Spawn:
-		GIBS C 3
-        Loop
-    Death:
-        POL5 A 3
-		POL5 A -1
-        Stop
-    }
-}
-
-ACTOR BlueGibs2: Gibs2
-{
-	decal bluebloodsmear
-	translation "32:47=240:243", "176:191=199:207"
+	translation "172:191=116:125","32:47=116:125","16:31=114:117"
+	states
+	{
+   Spawn:
+		GIBS C 2 a_spawnitemex("greenjuicyblood",random(-1,1),random(-1,1),random(-1,1),random(-1,1),random(-1,1),-1,random(0,360))
+        Loop	
+	}
 }
 
 ACTOR GreenGibs2: Gibs2
 {
 	decal greenbloodsmear
-	translation "172:191=118:123","23:47=119:127","160:167=112:119"
+	translation "172:191=116:125","32:47=116:125","16:31=114:117"
 }
 
+
+//a dummy actor serving as a navigational marker//
+//////////////////////////////////////////////////
+ACTOR -------SPECIALPARTS------- {}
+//////////////////////////////////////////////////
+
+ACTOR Skull : Gibs1
+{
+   -BOUNCEONACTORS
+	bounceType Doom
+	bounceFactor 0.6
+	bouncesound "gore/blech"
+
+	states
+	{
+	spawn:
+		SKLL ABCDEFGH 3
+		loop
+	Death:
+		TNT1 a 0
+		TNT1 a 0 a_playsound("gore/splat", 0, 0.6, false, 0.3, false)		
+		TNT1 a 0 a_jump(255, "death1", "death2")
+		goto death1
+	Death1:
+		SKLL i -1
+		stop
+	Death2:
+		SKLL j -1
+		stop
+	}
+}
+
+
+//brain giblet
+ACTOR Brain : skull
+{
+	states
+	{
+	spawn:
+	BRAI abcdef 3 a_spawnitemex("flyingblood",random(-1,1),random(-1,1),random(-1,1),random(-1,1),random(-1,1),-1,random(0,360))
+	loop
+	death:
+	BRDI abcdef 2
+	BRDI g -1
+	stop
+	}
+}
+
+ACTOR CacoChunks : Gibs2
+{
+	bounceSound "gore/blech"
+	bouncetype Doom
+	bouncefactor 0.5
+	bouncecount 3
+	states
+	{
+	spawn:
+		CAGB abcdefg 3 a_spawnitemex("BlueJuicyBlood",0,0,0,0,0,0,0)
+		loop
+	death:
+		CAGB h -1
+		stop
+	}
+}
+
+ACTOR SmallCacoChunks : CacoChunks
+{
+	states
+	{
+	spawn:
+		SMCB abcd 3 a_spawnitemex("Blueflyingblood",0,0,0,0,0,0,0)
+		loop
+	death:
+		TNT1 a 0 a_spawnitemex("bluejuicyblood")
+		SMCB e -1
+		stop
+	}
+}
+
+ACTOR CacoEye : CacoChunks
+{
+	states
+	{
+		spawn:
+			CEYE abcdefgh 2 a_spawnitemex("BlueFlyingBlood",0,0,0,0,0,0,0)
+			loop
+		death:
+			CEYD a -1
+			stop
+	}
+}
+
+//a dummy actor serving as a navigational marker//
+//////////////////////////////////////////////////
+ACTOR -------BLOOD------- {}
+//////////////////////////////////////////////////
+
+//basic blood actor that triggers when an actor is hurt
 actor XBlood Replaces Blood
 {
-+FORCEXYBILLBOARD
-+GHOST
 +NOBLOCKMAP
 +NOGRAVITY
++BOUNCEONACTORS
 +NOCLIP
--DONTSPLASH
++DONTSPLASH
 +ALLOWPARTICLES 
 decal bloodsplat
 Speed 0
  states
- {
-  Spawn:
-		TNT1 AA 0 A_JumpIf(CallACS("BloodSpotToggle")==0, "Disappear")
+   {
+   Spawn:
+        BLUD C 2
+		BLUD B 2
+		BLUD A 2
 		TNT1 AA 0 A_CustomMissile ("FlyingBlood", 0, 0, random (0, 360), 2, random (0, 160))
 		TNT1 AAAA 0 A_CustomMissile ("FlyingBloodFast", 0, 0, random (0, 360), 2, random (50, 120))
-        BLUD CBA 2
 		stop
-	Disappear:
-		TNT1 A 1
-		stop
- }
+	}
 }
+
+//splashy blood animation for gore effects
+ACTOR JuicyBlood : blood
+{
+	+NOGRAVITY
+	states
+	{
+	spawn:
+		tnt1 a 0 a_jump(128,+2)
+		BLOO abcdefghi 2
+		stop
+		BLO2 abcdefgh 2
+		stop
+	disappear:
+		tnt1 a 0
+		stop
+	}
+}
+
+
+ACTOR BlueJuicyBlood : JuicyBlood
+{
+	translation "32:47=240:243", "176:191=199:207"
+}
+
+ACTOR GreenJuicyBlood : JuicyBlood
+{
+	translation "172:191=118:123","23:47=119:127","160:167=112:119"
+}
+
 
 actor BlueBlood : Xblood
 {
-decal bluebloodsplat
 translation "1:191=200:207","208:255=200:207"
+decal bluebloodsplat
+
 states
 	{
-  Spawn:
-		TNT1 AA 0 A_JumpIf(CallACS("BloodSpotToggle")==0, "Disappear")
-		TNT1 AA 0 A_CustomMissile ("BlueFlyingBlood", 0, 0, random (0, 360), 2, random (0, 160))
-		TNT1 AA 0 A_CustomMissile ("BlueFlyingBloodFakeFast", 0, 0, random (0, 360), 2, random (0, 180))
+    Spawn:
+		TNT1 AA 0 A_CustomMissile ("blueFlyingBlood", 0, 0, random (0, 360), 2, random (0, 160))
+		TNT1 AA 0 A_CustomMissile ("blueFlyingBloodFast", 0, 0, random (0, 360), 2, random (0, 180))
 		BLUD ABC 2
         stop
+	Disappear:
+		TNT1 A 1
+		stop
 	}
 }
 
 actor GreenBlood : Xblood
 {
-translation "16:47=112:127","185:191=11:12"
+translation "176:191=116:122"
 decal greenbloodsplat
 states
 	{
-Spawn:
-		TNT1 AA 0 A_JumpIf(CallACS("BloodSpotToggle")==0, "Disappear")
+    Spawn:
 		TNT1 AA 0 A_CustomMissile ("GreenFlyingBlood", 0, 0, random (0, 360), 2, random (0, 160))
-		TNT1 AA 0 A_CustomMissile ("GreenFlyingBloodFakeFast", 0, 0, random (0, 360), 2, random (0, 180))
+		TNT1 AA 0 A_CustomMissile ("GreenFlyingBloodFast", 0, 0, random (0, 360), 2, random (0, 180))
 		BLUD ABC 2
-        stop
-	}
-}
-
-actor XBlood2
-{
-+FORCEXYBILLBOARD
-+GHOST
-+NOBLOCKMAP
-+NOGRAVITY
-+NOCLIP
--DONTSPLASH
-+ALLOWPARTICLES 
-decal bloodsplat
-Speed 0
- states
- {
-  Spawn:
-		TNT1 AA 0 A_JumpIf(CallACS("BloodSpotToggle")==0, "Disappear")
-		TNT1 AA 0 A_CustomMissile ("FlyingBlood", 0, 0, random (0, 360), 2, random (0, 160))
-		TNT1 AA 0 A_CustomMissile ("FlyingBloodFakeFast", 0, 0, random (0, 360), 2, random (0, 180))
         stop
 	Disappear:
 		TNT1 A 1
 		stop
- }
-}
-
-actor Greenblood2 : XBlood2
-{
-translation "16:47=112:127","185:191=11:12"
-decal greenbloodsplat
-states
-	{
-  Spawn:
-		TNT1 AA 0 A_JumpIf(CallACS("BloodSpotToggle")==0, "Disappear")
-		TNT1 AA 0 A_CustomMissile ("GreenFlyingBlood", 0, 0, random (0, 360), 2, random (0, 160))
-		TNT1 AA 0 A_CustomMissile ("GreenFlyingBloodFakeFast", 0, 0, random (0, 360), 2, random (0, 180))
-        stop
 	}
 }
 
-actor BlueBlood2 : XBlood2
-{
-decal bluebloodsplat
-translation "1:191=200:207","208:255=200:207"
-states
-	{
-  Spawn:
-		TNT1 AA 0 A_JumpIf(CallACS("BloodSpotToggle")==0, "Disappear")
-		TNT1 AA 0 A_CustomMissile ("BlueFlyingBlood", 0, 0, random (0, 360), 2, random (0, 160))
-		TNT1 AA 0 A_CustomMissile ("BlueFlyingBloodFakeFast", 0, 0, random (0, 360), 2, random (0, 180))
-        stop
-	}
-}
-
-actor XBloodSpot
-{
- RenderStyle Translucent
- Alpha 1
- game Doom
- radius 12
- height 2
- mass 1
- scale 0.8
- +NOTELEPORT
- -NOBLOCKMAP
- +FORCEXYBILLBOARD
- +DOOMBOUNCE
- +DONTSPLASH
- +MISSILE
- Speed 0
- BounceFactor 0.01
- states
- {
- Spawn:
- BLUD F 1
- Loop
- Death:
-  TNT1 A 0
-  TNT1 A 0 A_Jump(64,4)
-  TNT1 A 0 A_Jump(128,4)
-  TNT1 A 0 A_Jump(192,4)
-  TNT1 A 0 A_Jump(255,4)
-  BLD1 A 750
-  goto Aloop
-  BLD1 B 750
-  goto Bloop
-  BLD1 C 750
-  goto Cloop
-  BLD1 D 750
-  goto Dloop
- Aloop:
-  BLD1 A 1 A_FadeOut(0.01)
-  loop
- Bloop:
-  BLD1 B 1 A_FadeOut(0.01)
-  loop
- Cloop:
-  BLD1 C 1 A_FadeOut(0.01)
-  loop
- Dloop:
-  BLD1 D 1 A_FadeOut(0.01)
-  loop
- }
-}
-
-Actor Bluebloodspot : Xbloodspot
-{
-translation "27:47=200:207","175:191=202:207"
-}
-
-Actor Greenbloodspot : Xbloodspot
-{
-translation "32:47=112:127","175:191=121:126"
-}
-
-
-ACTOR FlyingBlood: Gibs1
+//flying specks of blood that spawn off "xblood" actor
+ACTOR FlyingBlood : Gibs1
 {
 -DOOMBOUNCE
 -SOLID
 +THRUACTORS
--DONTSPLASH
++DONTSPLASH
+-BOUNCEONACTORS
++NOBLOCKMAP
 decal bloodsplat
 Speed 4
     Scale 1.0
@@ -253,16 +450,14 @@ Speed 4
 	    TNT1 A 0 
 		TNT1 A 0 a_jump(255, "spawn1", "spawn2")
     Spawn1:
-		BLUD F 5
-		Loop
+		BLUD F 2
+		loop
 	Spawn2:
-		BLUD G 5
-		Loop
+		BLUD G 2
+		loop
 	Death:
 		TNT1 A 0 A_JumpIf(CallACS("LiquidCheck"),"OutDamnSpot")
-		TNT1 A 0 A_JumpIf(CallACS("BloodSpotToggle")==0, "OutDamnSpot")
 		BLUD F 1
-		TNT1 A 0 A_SpawnItem("XBloodspot", 0, 5)
 		Stop
 	OutDamnSpot:
 		BLUD F 1
@@ -277,122 +472,52 @@ translation "1:191=200:207","208:255=200:207"
 states
 	{
 	Death:
-		TNT1 A 0 A_JumpIf(CallACS("BloodSpotToggle")==0, "OutDamnSpot")
 		BLUD F 1
-		TNT1 A 0 A_SpawnItem("BlueBloodspot", 0, 5)
 		Stop
-	OutDamnSpot:
-		BLUD F 1
-		stop
     }
 }
 
 ACTOR GreenFlyingBlood : FlyingBlood
 {
 decal greenbloodsplat
-translation "168:184=112:127","185:191=11:12","16:47=112:127"
+	translation "172:191=116:123","32:47=116:123"
 states
 	{
 	Death:
-		TNT1 A 0 A_JumpIf(CallACS("LiquidCheck"),"OutDamnSpot")
-		TNT1 A 0 A_JumpIf(CallACS("BloodSpotToggle")==0, "OutDamnSpot")
 		BLUD F 1
-		TNT1 A 0 A_SpawnItem("GreenBloodspot", 0, 5)
 		Stop
-	OutDamnSpot:
-		BLUD F 1
-		stop
    }
 }
-
-
 
 ACTOR FlyingBloodFast: FlyingBlood
 {
 Speed 6
--DOOMBOUNCE
-+FORCEXYBILLBOARD
--SOLID
 Scale 0.5
-Gravity 0.8
+Gravity 1.0
 }
 
 ACTOR BlueFlyingBloodFast: FlyingBloodFast
-{
-translation "1:191=200:207","208:255=200:207"
-states
-{
-	Death:
-		TNT1 A 0 A_JumpIf(CallACS("LiquidCheck"),"OutDamnSpot")
-		TNT1 A 0 A_JumpIf(CallACS("BloodSpotToggle")==0, "OutDamnSpot")
-		BLUD F 1
-		TNT1 A 0 A_SpawnItem("BlueBloodspot", 0, 5)
-		Stop
-	OutDamnSpot:
-		BLUD F 1
-		stop
-    }
-}
-
-ACTOR GreenFlyingBloodFast: FlyingBloodFast
-{
-decal greenbloodsplat
-translation "168:184=112:127","185:191=11:12","16:47=112:127"
-states
-{
-	Death:
-		TNT1 A 0 A_JumpIf(CallACS("LiquidCheck"),"OutDamnSpot")
-		TNT1 A 0 A_JumpIf(CallACS("BloodSpotToggle")==0, "OutDamnSpot")
-		BLUD F 1
-		TNT1 A 0 A_SpawnItem("GreenBloodspot", 0, 5)
-		Stop
-	OutDamnSpot:
-		BLUD F 1
-		stop
-    }
-}
-
-ACTOR FlyingBloodFakeFast: FlyingBloodFast
-{
-Scale 0.3
-Speed 12
--DOOMBOUNCE
-+FORCEXYBILLBOARD
--SOLID
-}
-
-ACTOR BlueFlyingBloodFakeFast: FlyingBloodFakeFast
 {
 decal bluebloodsplat
 translation "1:191=200:207","208:255=200:207"
 states
 {
 	Death:
-		TNT1 A 0 A_JumpIf(CallACS("LiquidCheck"),"OutDamnSpot")
-		TNT1 A 0 A_JumpIf(CallACS("BloodSpotToggle")==0, "OutDamnSpot")
 		BLUD F 1
-		TNT1 A 0 A_SpawnItem("BlueBloodspot", 0, 5)
 		Stop
-	OutDamnSpot:
-		BLUD F 1
-		stop
     }
 }
 
-ACTOR GreenFlyingBloodFakeFast: FlyingBloodFakeFast
+ACTOR GreenFlyingBloodFast: FlyingBloodFast
 {
 decal greenbloodsplat
-translation "168:184=112:127","185:191=11:12","16:47=112:127"
+	translation "172:191=116:123","32:47=116:123"
 states
 {
 	Death:
-		TNT1 A 0 A_JumpIf(CallACS("LiquidCheck"),"OutDamnSpot")
-		TNT1 A 0 A_JumpIf(CallACS("BloodSpotToggle")==0, "OutDamnSpot")
 		BLUD F 1
-		TNT1 A 0 A_SpawnItem("GreenBloodspot", 0, 5)
 		Stop
-	OutDamnSpot:
-		BLUD F 1
-		stop
     }
 }
+
+

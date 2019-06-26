@@ -1,4 +1,4 @@
-ACTOR SmoothDemon : Demon
+ACTOR SmoothDemon : Demon replaces Demon
 {
 	States
 	{
@@ -6,9 +6,15 @@ ACTOR SmoothDemon : Demon
 		SARG AB 10 fast A_Look
 		Loop
 	See:
+		TNT1 a 0 a_jumpif(CallACS("PinkyToggle")==1,"quicksee")	
 		SSRG AABCDDEF 2 fast A_Chase
 		Loop
+	QuickSee:
+		SSRG ABCDEF 2 A_Chase
+		Loop
+		
 	Melee:
+		TNT1 a 0 a_jumpif(CallACS("PinkyToggle")==1,"quickmelee")		
 		SSRG G 8 fast A_FaceTarget
 		SSRG GGGHIII 1 fast A_FaceTarget
 		SSRG J 1 fast
@@ -16,19 +22,30 @@ ACTOR SmoothDemon : Demon
 		SSRG L 4 fast
 		SSRG G 3 fast
 		Goto See
-	Pain:
-		SSRG M 1 fast
-		SSRG N 2 fast
-		SSRG M 1 fast A_Pain
+	QuickMelee:
+		SSRG G 2 A_FaceTarget
+		SSRG GGGHIII 1 A_FaceTarget
+		SSRG J 1 A_SargAttack
+		SSRG K 1 
+		SSRG LG 2
 		Goto See
+	
+	Pain:
+		SSRG M 2
+		SSRG N 2 A_Pain
+		Goto See
+		
 	Death.GibbyHaynes:
-		TNT1 A 0
 		TNT1 A 0 A_JumpIf(CallACS("StudioGibbly")==0, "Death")
-		TNT1 A 0
-		TNT1 A 0 A_JumpIfCloser(128, "GibDeath")
-		TNT1 A 0
+		TNT1 A 0 A_JumpIfCloser(128, "xdeath")
+		goto death
+	Death.Saw:
+		TNT1 A 0 A_JumpIf(CallACS("ChainsawGib")==0, "Death")
+		goto Xdeath
+		
+		
 	Death:
-		TNT1 a 0 A_JumpIfHealthLower(-30,"Gibdeath")
+		TNT1 a 0 A_JumpIfHealthLower(-30,"xdeath")
 		SSRD A 3
 		SSRD B 3 A_Scream
 		SSRD C 3
@@ -36,11 +53,10 @@ ACTOR SmoothDemon : Demon
 		SSRD EFGH 3
 		SSRD I -1
 		Stop
-	GibDeath:
+	xdeath:
 		SARG o 3
-		TNT1 AAAAAAAAAAAAAAA 0 A_CustomMissile ("Gibs1", 32, 0, random (0, 360), 2, random (0, 160))
-		TNT1 AA 0 A_CustomMissile ("Gibs2", 32, 0, random (0, 360), 2, random (0, 160))
-		TNT1 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA 0 A_SpawnItem("XBlood2", 0, 40)
+		TNT1 A 0 A_JumpIf(CallACS("Gibtoggle")==0, "Death.massacre")
+		TNT1 a 0 a_spawnitemex("biggorecontroller")
 		SARG p 0 a_playsound ("misc/gibbed")
 		SARG p 3 a_scream
 		SARG q 3
@@ -48,42 +64,7 @@ ACTOR SmoothDemon : Demon
 		SARG stuvw 3
 		SARG x -1
 		stop
-	}
-}
-
-ACTOR smoothspectre : spectre
-{
-	States
-	{
-	Spawn:
-		SARG AB 10 fast A_Look
-		Loop
-	See:
-		SSRG AABCDDEF 2 fast A_Chase
-		Loop
-	Melee:
-		SSRG G 8 fast A_FaceTarget
-		SSRG GGGHIII 1 fast A_FaceTarget
-		SSRG J 1 fast
-		SSRG K 1 fast A_SargAttack
-		SSRG L 4 fast
-		SSRG G 3 fast
-		Goto See
-	Pain:
-		SSRG M 1 fast
-		SSRG N 2 fast
-		SSRG M 1 fast A_Pain
-		Goto See
-	Death:
-		TNT1 a 0 A_JumpIfHealthLower(-30,"Gibdeath")
-		SSRD A 3
-		SSRD B 3 A_Scream
-		SSRD C 3
-		SSRD D 3 A_NoBlocking
-		SSRD EFGH 3
-		SSRD I -1
-		Stop
-	GibDeath:
+	Death.Massacre:
 		SARG o 3
 		SARG p 0 a_playsound ("misc/gibbed")
 		SARG p 3 a_scream
@@ -95,103 +76,10 @@ ACTOR smoothspectre : spectre
 	}
 }
 
-ACTOR fastSmoothDemon : smoothdemon
+ACTOR smoothspectre : smoothdemon replaces Spectre
 {
-	States
-	{
-	Spawn:
-		SARG AB 10 fast A_Look
-		Loop
-	See:
-		SSRG a 2 fast A_Chase
-		SSRG b 2 fast A_Chase
-		SSRG c 2 fast A_Chase
-		SSRG d 2 fast A_Chase
-		SSRG e 2 fast A_chase
-		SSRG f 2 fast A_chase
-		Loop
-	Melee:
-		SSRG G 2 fast A_FaceTarget
-		SSRG GGGHIII 1 fast A_FaceTarget
-		SSRG J 1 fast
-		SSRG K 1 fast A_SargAttack
-		SSRG L 4 fast
-		SSRG G 3 fast
-		Goto See
-	Pain:
-		SSRG M 1 fast
-		SSRG N 2 fast
-		SSRG M 1 fast A_Pain
-		Goto See
-	Death:
-		TNT1 a 0 A_JumpIfHealthLower(-30,"Gibdeath")
-		SSRD A 3
-		SSRD B 3 A_Scream
-		SSRD C 3
-		SSRD D 3 A_NoBlocking
-		SSRD EFGH 3
-		SSRD I -1
-		Stop
-	GibDeath:
-		SARG o 3
-		TNT1 AAAAAAAAAAAAAAA 0 A_CustomMissile ("Gibs1", 32, 0, random (0, 360), 2, random (0, 160))
-		TNT1 AA 0 A_CustomMissile ("Gibs2", 32, 0, random (0, 360), 2, random (0, 160))
-		TNT1 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA 0 A_SpawnItem("XBlood2", 0, 40)
-		TNT1 a 0 a_playsound ("misc/gibbed")
-		SARG p 3 a_scream
-		SARG q 3
-		SARG r 3 a_noblocking
-		SARG stuvw 3
-		SARG x -1
-		stop
-	}
-}
-
-ACTOR fastsmoothspectre : smoothspectre
-{
-	States
-	{
-	Spawn:
-		SARG AB 10 fast A_Look
-		Loop
-	See:
-		SSRG a 2 fast A_Chase
-		SSRG b 2 fast A_Chase
-		SSRG c 2 fast A_Chase
-		SSRG d 2 fast A_Chase
-		SSRG e 2 fast A_chase
-		SSRG f 2 fast A_chase
-		Loop
-	Melee:
-		SSRG G 2 fast A_FaceTarget
-		SSRG GGGHIII 1 fast A_FaceTarget
-		SSRG J 1 fast
-		SSRG K 1 fast A_SargAttack
-		SSRG L 4 fast
-		SSRG G 3 fast
-		Goto See
-	Pain:
-		SSRG M 1 fast
-		SSRG N 2 fast
-		SSRG M 1 fast A_Pain
-		Goto See
-	Death:
-		TNT1 a 0 A_JumpIfHealthLower(-30,"Gibdeath")
-		SSRD A 3
-		SSRD B 3 A_Scream
-		SSRD C 3
-		SSRD D 3 A_NoBlocking
-		SSRD EFGH 3
-		SSRD I -1
-		Stop
-	GibDeath:
-		SARG o 3
-		TNT1 a 0 a_playsound ("misc/gibbed")
-		SARG p 3 a_scream
-		SARG q 3
-		SARG r 3 a_noblocking
-		SARG stuvw 3
-		SARG x -1
-		stop
-	}
+  +SHADOW
+  RenderStyle OptFuzzy
+  Alpha 0.5
+  HitObituary "$OB_SPECTREHIT" // "%o was eaten by a spectre."
 }

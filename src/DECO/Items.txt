@@ -1,3 +1,4 @@
+
 actor sexybarrel : explosivebarrel replaces explosivebarrel
 {
 states
@@ -5,52 +6,71 @@ states
 	spawn:
 		BAR1 abcdefghijklm 3
 		loop
+		
 	death:
-		TNT1 A 0 A_JumpIf(CallACS("DukeToggle")==1, "dukedeath")
-		TNT1 A 0 A_JumpIf(CallACS("RumbleToggle")==1, "quakedeath")
-		sexp A 5 Bright
-		sexp B 5 Bright A_Scream
+		sexp AB 5 Bright
 		sexp C 3 Bright
-		sexp D 2 Bright
-		sexp E 3 Bright A_Explode
-		sexp FGH 3 Bright
-		sexp I 3 Bright
-		sexp I 1050 Bright A_BarrelDestroy
-		sexp I 5 A_Respawn
-	quakedeath:
-		TNT1 A 0 A_JumpIf(CallACS("DukeToggle")==1, "dukedeath")
-		sexp A 5 Bright
-		sexp B 5 Bright A_Scream
-		sexp d 0 a_quake (3,10,0,750,0)
-		sexp d 0 a_quake (1,25,0,1000,0)
-		sexp C 3 Bright
-		sexp D 2 Bright
-		sexp E 3 Bright A_Explode
-		sexp FGH 3 Bright
-		sexp I 3 Bright
-		sexp I 1050 Bright A_BarrelDestroy
-		sexp I 5 A_Respawn
-	dukedeath:
-		TNT1 A 0 A_JumpIf(CallACS("RumbleToggle")==1, "quakedukedeath")
-		sexp A 5 Bright
-		sexp B 5 Bright A_Scream
-		sexp C 3 Bright
-		bexp c 2 Bright
-		bexp d 3 Bright A_Explode
-		bexp FGHIJKLMN 2 Bright
-		bexp N 1050 Bright A_BarrelDestroy
-		bexp N 5 A_Respawn
-	quakedukedeath:
-		sexp A 5 Bright
-		sexp B 5 Bright A_Scream
-		sexp d 0 a_quake (3,10,0,750,0)
-		sexp d 0 a_quake (1,25,0,1000,0)
-		sexp C 3 Bright
-		bexp c 2 Bright
-		bexp d 3 Bright A_Explode
-		bexp FGHIJKLMN 2 Bright
-		bexp N 1050 Bright A_BarrelDestroy
-		bexp N 5 A_Respawn
+		sexp D 1 Bright A_Scream
+		
+		 	TNT1 A 0 A_JumpIf(CallACS("RumbleToggle")==0, +3)
+			TNT1 A 0 a_quake (2,3,0,600,0)
+			TNT1 A 0 a_quake (1,7,0,1000,0)
+		
+		
+			TNT1 A 0 A_JumpIf(CallACS("PuffStyle")==0, "finish")		
+			TNT1 aaaaaaaaaaaaaaaaaaaaaaaaaaaaa 0 a_spawnitemex("ExplosionParticles",0,0,random(5,10),random(-10,10),random(-10,10),random(-3,9),random(0,360))
+			
+			//yellow particles
+			TNT1 aaaaaaaaaaaaaaaa 0 a_spawnparticle(
+			/*color*/yellow, 
+			/*flags*/ +SPF_FULLBRIGHT +SPF_RELATIVE, 
+			/*lifetime*/random(6,14),
+			/*size*/random(3,6), 
+			/*angle*/ frandom(0,360),
+			/*xyz off*/ random(-2,2), random(-2,2), random(4,8), 
+			/*xyz vel*/ random(5,10), random(5,10), random(-5,10), 
+			/*xyz accel*/ 0, 0, 0,
+			/*start alpha*/ 1.0,
+			/*fadestep*/ -1)
+		
+			//orange particles
+			TNT1 aaaaaaaaa 0 a_spawnparticle(
+			/*color*/ffac00, 
+			/*flags*/ +SPF_FULLBRIGHT +SPF_RELATIVE, 
+			/*lifetime*/random(7,16),
+			/*size*/random(5,7), 
+			/*angle*/ frandom(0,360),
+			/*xyz off*/ random(-2,2), random(2,4), random(4,8), 
+			/*xyz vel*/ random(3,6), random(3,6), random(-2,4), 
+			/*xyz accel*/ 0, 0, 0,
+			/*start alpha*/ 1.0,
+			/*fadestep*/ -1)
+		
+			//red particles
+			TNT1 aaaaaaaaaaaaaaaaaaaaaaa 0 a_spawnparticle(
+			/*color*/ff2f00, 
+			/*flags*/ +SPF_FULLBRIGHT +SPF_RELATIVE, 
+			/*lifetime*/random(10,20),
+			/*size*/random(3,4), 
+			/*angle*/ frandom(0,360),
+			/*xyz off*/ random(-2,2), random(2,4), random(4,9), 
+			/*xyz vel*/ random(3,6), random(3,6), random(0,1), 
+			/*xyz accel*/ 0, 0, 0,
+			/*start alpha*/ 0.8,
+			/*fadestep*/ -1)
+		TNT1 AAAAAA 0 A_SpawnItemEx("SmoothSmoke", random(-40, 40), random(-40, 40), random(0, 30))
+
+		goto finish
+			
+		finish:
+			sexp D 1 Bright
+			sexp E 3 Bright A_Explode
+			TNT1 A 0 A_JumpIf(CallACS("PuffStyle")==0, +2)					
+			TNT1 AAAAAAAAAA 0 A_SpawnItemEx("SmoothSmoke", random(-20, 20), random(-20, 20), random(10, 50),random(-2,2),random(-2,2),random(1,3))
+			sexp FGH 4 Bright
+			sexp I 3 Bright
+			sexp I 1050 Bright A_BarrelDestroy
+			sexp I 5 A_Respawn
 	}
 }
 
@@ -59,8 +79,9 @@ actor sexygreenarmor : greenarmor replaces greenarmor
 states
 	{
 	spawn:
-	garm ab 4 bright
-	garm cdcb 4
+	garm aabc 2 bright
+	garm defghgfed 3
+	garm cb 2 bright
 	loop
 	}
 }
@@ -70,8 +91,9 @@ actor sexybluearmor : bluearmor replaces bluearmor
 states
 	{
 	spawn:
-	blar ab 4 bright
-	blar cdcb 4
+	blar aabc 2 bright
+	blar defghgfed 3
+	blar cb 2 bright
 	loop
 	}
 }
@@ -91,14 +113,16 @@ actor sexyhelmet : armorbonus replaces armorbonus
 states
 	{
 	spawn: 
-	TNT1 A 0
-	TNT1 A 0 A_JumpIf(CallACS("AltHelmBonus")==1, "AltSpawn")
-	HELB abcdefghgfedcb 3
-	loop
+		TNT1 A 0
+		TNT1 A 0 A_JumpIf(CallACS("AltHelmBonus")==1, "AltSpawn")
+		HELB abcdefghgfedcb 3
+		loop
+	
 	AltSpawn:
-	NUBO a 20
-	NUBO cdb 3
-	loop
+		NUBO a 20
+		NUBO cdb 3
+		TNT1 A 0 A_JumpIf(CallACS("AltHelmBonus")==0, "Spawn")
+		loop
 	}
 }
 
@@ -108,8 +132,9 @@ actor mrsoul : soulsphere replaces soulsphere
 states
 	{
 	spawn:
-	ZOUL abcdefgfedcb 4 bright
-	loop
+		ZOUL a 5 bright
+		ZOUL bcdefghijihgfedcb 3 bright
+		loop
 	}
 }
 
@@ -156,119 +181,6 @@ states
 	}
 }
 
-ACTOR SmoothRedCard : redcard replaces redcard
-{
-  States
-  {
-  Spawn:
-    TNT1 A 0 A_JumpIf(CallACS("RotatingKeys")==1, "Rotate")
-	RDCK ab 4
-	RDCK cd 4 bright
-	RDCK ef 4
-	RDCK gh 4 Bright
-    Loop
-  Rotate:
-    TNT1 A 0 A_JumpIf(CallACS("RotatingKeys")==0, "spawn")
-	RTAT abc 3 bright
-	RTAT def 3
-	RTAT ghi 3 bright
-	RTAT jkl 3
-	loop
-  }
-}
-
-ACTOR SmoothBlueCard : bluecard replaces bluecard
-{
-  States
-  {
-  Spawn:
-    TNT1 A 0 A_JumpIf(CallACS("RotatingKeys")==1, "Rotate")
-	BLCK ab 4
-	BLCK cd 4 bright
-	BLCK ef 4
-	BLCK gh 4 Bright
-    Loop
-  Rotate:
-    TNT1 A 0 A_JumpIf(CallACS("RotatingKeys")==0, "spawn")
-	btat abc 3 bright
-	btat def 3
-	btat ghi 3 bright
-	btat jkl 3
-	loop
-  }
-}
-
-ACTOR SmoothYellowCard : yellowcard replaces yellowcard
-{
-  States
-  {
-  Spawn:
-    TNT1 A 0 A_JumpIf(CallACS("RotatingKeys")==1, "Rotate")
-	YLCK ab 4
-	YLCK cd 4 bright
-	YLCK ef 4
-	YLCK gh 4 Bright
-    Loop
-  Rotate:
-    TNT1 A 0 A_JumpIf(CallACS("RotatingKeys")==0, "spawn")
-	ytat abc 3 bright
-	ytat def 3
-	ytat ghi 3 bright
-	ytat jkl 3
-	loop
-  }
-}
-
-ACTOR SmoothSkullRed : redskull replaces redskull
-{
-  states
-  {
-  Spawn:
-    TNT1 A 0 A_JumpIf(CallACS("RotatingKeys")==1, "Rotate")
-	RSKU A 10
-    RSKU B 10 Bright
-    Loop
-  rotate:
-    TNT1 A 0 A_JumpIf(CallACS("RotatingKeys")==0, "spawn")
-	RSKY abcd 3 bright
-	RSKY efgh 3
-	loop
-  }
-}
-
-ACTOR SmoothSkullBlu : blueskull replaces blueskull
-{
-  states
-  {
-  Spawn:
-    TNT1 A 0 A_JumpIf(CallACS("RotatingKeys")==1, "Rotate")
-	BSKU A 10
-    BSKU B 10 Bright
-    Loop
-  rotate:
-    TNT1 A 0 A_JumpIf(CallACS("RotatingKeys")==0, "spawn")
-	BSKY abcd 3 bright
-	BSKY efgh 3
-	loop
-  }
-}
-
-ACTOR SmoothSkullYel : yellowskull replaces yellowskull
-{
-  states
-  {
-  Spawn:
-    TNT1 A 0 A_JumpIf(CallACS("RotatingKeys")==1, "Rotate")
-	YSKU A 10
-    YSKU B 10 Bright
-    Loop
-  rotate:
-    TNT1 A 0 A_JumpIf(CallACS("RotatingKeys")==0, "spawn")
-	YSKY abcd 3 bright
-	YSKY efgh 3
-	loop
-  }
-}
 
 ACTOR NewClip : Clip replaces Clip
 {
@@ -281,7 +193,7 @@ ACTOR NewClip : Clip replaces Clip
     stop
 	
 	64Spawn:
-	CL64 a -1
+	BC64 a -1
 	stop
 	}
 }
@@ -345,7 +257,7 @@ ACTOR NewCell : Cell replaces Cell
     stop
 	
 	64Spawn:
-	PS64 A -1
+	CS64 A -1
 	stop
   }
 }
@@ -361,7 +273,7 @@ ACTOR NewCellBig : CellPack replaces CellPack
     stop
 	
 	64Spawn:
-    PL64 A -1
+    CL64 A -1
     stop
 	}
 }
@@ -403,8 +315,7 @@ ACTOR NewMedkit : Medikit replaces Medikit
 states
  {
   Spawn:
-    TNT1 A 0
-	TNT1 A 0 A_JumpIf(CallACS("64StylePickups")==1, "64spawn")
+	TNT1 A 0 nodelay A_JumpIf(CallACS("64StylePickups")==1, "64spawn")
 	MEDI A -1
     stop
 	
@@ -419,14 +330,14 @@ actor sexygoggles : infrared replaces infrared
 states
 	{
 	spawn:
-	TNT1 A 0
-	TNT1 A 0 A_JumpIf(CallACS("64StylePickups")==1, "64spawn")
-	SVIS abcd 3 bright
-	SVIS eeee 3
-	loop
+		TNT1 A 0 nodelay A_JumpIf(CallACS("64StylePickups")==1, "64spawn")
+		SVIS aaaabc 3
+		SVIS defghijklmnoed 2 bright
+		SVIS cb 3
+		loop
 	64spawn:
-	VI64 abcd 3 bright
-	VI64 eeee 3
-	loop
+		VI64 abcd 3 bright
+		VI64 eeee 3
+		loop
 	}
 }

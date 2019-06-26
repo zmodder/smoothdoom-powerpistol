@@ -52,6 +52,30 @@ flickerlight ROCKET_X3
     chance 0.3
 }
 
+flickerlight2 PistolLight
+{
+    color 1.0 0.8 0.2
+    size 48
+    secondarySize 56
+    interval 1
+    offset 0 40 0
+}
+
+flickerlight2 PistolLight2
+{
+    color 1.0 0.8 0.2
+    size 32
+    secondarySize 40
+    interval 1
+    offset 0 40 0
+}
+
+object PerkPistol
+{
+	frame PKPFA0 { light PistolLight }
+	frame PKPFB0 { light PistolLight2 }
+}
+
 object SmoothRocket
 {
     frame MISLA { light ROCKET    }
@@ -331,9 +355,9 @@ object smoothBFGExtra
 
 
 
-// ----------------------
-// -- Doom Decorations --
-// ----------------------
+// ----------------
+// ---------------DECORATIONS---------------{}
+// ----------------
 
 // Barrel
 pulselight BARREL
@@ -531,13 +555,9 @@ flickerlight2 SKULLSNCANDLES
     offset 0 32 0
 }
 
-object NewHeadCandles
-{
-	frame POL3 { light SKULLSNCANDLES }
-}
 
 // Burning barrel
-flickerlight2 FIREBARREL
+flickerlight2 BarrelFlicker
 {
     color 1.0 0.9 0.0
     size 48
@@ -548,7 +568,7 @@ flickerlight2 FIREBARREL
 
 object BurningBarrel1
 {
-    frame BURB { light FIREBARREL }
+	frame BURN { light BarrelFlicker }
 }
 
 // Skulls w/candles
@@ -576,13 +596,6 @@ flickerlight2 CANDLE
     offset 0 16 0
 }
 
-object Candlestick1
-{
-    frame CAND { light CANDLE }
-	
-	frame SCAN { light CANDLE }
-}
-
 // Candelabra
 flickerlight2 CANDELABRA
 {
@@ -593,18 +606,9 @@ flickerlight2 CANDELABRA
     offset 0 52 0
 }
 
-object Candelabra1
-{
-    frame CBRA { light CANDELABRA }
-	
-	frame SCBR { light CANDELABRA }
-}
-
-
-
 
 // ----------------
-// -- Doom Items --
+// ---------------ITEMS---------------{}
 // ----------------
 
 // Soul Sphere
@@ -626,6 +630,20 @@ object mrsoul
 pulselight INVULN
 {
     color 0.0 1.0 0.0
+    size 40
+    secondarySize 42
+    interval 2.0
+    offset 0 16 0
+}
+
+object megasmooth
+{
+	frame SMEG { light megalight }
+}
+
+pulselight megalight
+{
+    color 0.3 0.3 0.0
     size 40
     secondarySize 42
     interval 2.0
@@ -760,55 +778,6 @@ object sexyhelmet
 }
 
 
-// Blue Keys
-object SmoothBlueCard
-{
-    frame BLCK { light HEALTHPOTION }
-}
-
-object BlueSkull
-{
-    frame BSKU { light HEALTHPOTION }
-}
-
-// Yellow Keys
-pulselight YELLOWKEY
-{
-    color 0.6 0.6 0.0
-    size 16
-    secondarySize 18
-    interval 2.0
-}
-
-object SmoothYellowCard
-{
-    frame YLCK { light YELLOWKEY }
-}
-
-object YellowSkull
-{
-    frame YSKU { light YELLOWKEY }
-}
-
-// Red Keys
-pulselight REDKEY
-{
-    color 0.6 0.0 0.0
-    size 16
-    secondarySize 18
-    interval 2.0
-}
-
-object SmoothRedCard
-{
-    frame RDCK { light REDKEY }
-}
-
-object RedSkull
-{
-    frame RSKU { light REDKEY }
-}
-
 // Green armour
 pulselight GREENARMOR1
 {
@@ -839,9 +808,9 @@ object sexyBlueArmor
 
 
 
-// ------------------
-// -- Doom Enemies --
-// ------------------
+// ----------------
+// ---------------ENEMIES---------------{}
+// ----------------
 
 // Zombies
 flickerlight2 ZOMBIEATK
@@ -853,39 +822,24 @@ flickerlight2 ZOMBIEATK
     offset 0 40 0
 }
 
+flickerlight2 ZOMBIEATK2
+{
+    color 1.0 0.8 0.2
+    size 32
+    secondarySize 40
+    interval 1
+    offset 0 40 0
+}
+
 object SmoothZombieman
 {
     frame POSSF { light ZOMBIEATK }
-}
-
-object ZombieV1
-{
-    frame ZSV1F { light ZOMBIEATK }
-}
-
-object ZombieV2
-{
-    frame ZSV2F { light ZOMBIEATK }
-}
-
-object ZombieV3
-{
-    frame ZSV3F { light ZOMBIEATK }
+	frame POSSG { light ZOMBIEATK2 }
 }
 
 object SmoothShotgunGuy
 {
-    frame SPOSF { light ZOMBIEATK }
-}
-
-object SguyV1
-{
-    frame SSV1F { light ZOMBIEATK }
-}
-
-object SguyV2
-{
-    frame SSV2F { light ZOMBIEATK }
+    frame SPSRF { light ZOMBIEATK }
 }
 
 object SmoothChaingunGuy
@@ -893,15 +847,15 @@ object SmoothChaingunGuy
     frame CPOSF { light ZOMBIEATK }
 }
 
-object CguyV2
-{
-    frame CSV2F { light ZOMBIEATK }
-}
-
 object PerkDPlayer
 {
     frame PLAYF { light ZOMBIEATK }
 }
+
+
+// ----------------
+// ---------------PROJECTILES---------------{}
+// ----------------
 
 
 // Doom Imp Fireball

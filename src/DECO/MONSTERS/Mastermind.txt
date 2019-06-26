@@ -2,6 +2,12 @@ Actor SmoothMastermind : Spidermastermind replaces Spidermastermind
 {
 	states
 	{
+	spawn:
+    SPID AB 10 A_Look
+	TNT1 a 0 a_jumpif(CallACS("PinkyToggle")==0,"+2")
+	TNT1 a 0 a_setpainthreshold(60)
+    Loop
+	
 	see:
 	SMMA a 3 a_metal
 	SMMA a 3 a_chase
@@ -19,10 +25,10 @@ Actor SmoothMastermind : Spidermastermind replaces Spidermastermind
 	
 	missile:
 	SMMA a 20 a_facetarget
-	SSMA a 2 A_SPosAttackUseAtkSound
+	SSMA a 2 BRIGHT A_SPosAttackUseAtkSound
 	SSMA b 1
 	SSMA c 1
-	SSMA a 2 A_SPosAttackUseAtkSound
+	SSMA a 2 BRIGHT A_SPosAttackUseAtkSound
 	SSMA b 1
 	SSMA c 1
 	SSMA c 1 A_SpidRefire

@@ -1,0 +1,70 @@
+AddOptionMenu "OptionsMenu"
+{
+StaticText " "
+StaticText "Smooth Doom"
+Submenu "Smooth Doom Menu","SmoothDoomMenu"
+}
+
+OptionValue PocketFullaShells
+{
+	0.0, "None"
+	1.0, "Player Only"
+	2.0, "Player And Monster"
+}
+
+OptionValue WepStyle
+{
+	0.0, "Classic Doom"
+	1.0, "Doom 64"
+	2.0, "Black Gloves"
+	//3.0, "Doom Alpha"
+}
+
+OptionMenu "SmoothDoomMenu"
+{
+Title "Smooth Doom Options"
+StaticText " "
+
+
+
+StaticText "Effects Settings",1
+//
+option "ENHANCED GORE", "gbtoggle", "onoff"
+option "PARTICLE EFFECTS", "pftoggle","onoff"
+StaticText " "
+option "Explosion Screenshake", "rmtoggle", "onoff"
+StaticText " "
+
+
+
+StaticText "Misc Settings",1
+//
+option "'Marine Helmet' Armor Bonus", "botoggle", "onoff"
+option "Doom64-Style Items", "putoggle", "onoff"
+option "Extra Decoration Sprites", "dctoggle", "onoff"
+option "Extra Death Animations", "mdtoggle", "onoff"
+//option "Monster Skin Variants", "vatoggle", "onoff"
+StaticText " "
+
+
+
+StaticText "Gameplay Mutators",1
+//
+option "Monster rebalance", "pitoggle", "onoff"
+option "Zombieman Drops Rifle", "ritoggle", "onoff"
+StaticText " "
+
+
+
+StaticText "Weapon Settings",1
+//
+option "WEAPON SET (Affects Gameplay)", "wetoggle","WepStyle"
+StaticText " "
+option "Casings",	"catoggle","PocketFullaShells"
+option "Smooth Bob", "bbtoggle","onoff"
+option "Chainsaw Gibs Enemies", "SawGibToggle", "onoff"
+option "Super Shotgun Gibs Enemies", "ggtoggle", "onoff"
+option "Recoil", "retoggle","onoff"
+}
+
+	

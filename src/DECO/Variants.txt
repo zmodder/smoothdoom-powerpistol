@@ -1,6 +1,6 @@
 // [Blue Shadow] A_SpawnItemEx combo flag used by the spawners below
 // [Blue Shadow] Note that with SXF_TRANSFERAMBUSHFLAG flag, you do not need the "Deaf" variants.
-const int SD_VARIANTSPAWNFLAGS = SXF_TRANSFERAMBUSHFLAG | SXF_NOCHECKPOSITION;
+const int SD_VARIANTSPAWNFLAGS = SXF_TRANSFERAMBUSHFLAG | SXF_NOCHECKPOSITION | SXF_TRANSFERSPECIAL;
 
 // Base spawner class -----------------------------------------------------------------------------
 
@@ -23,11 +23,7 @@ ACTOR ZombieDice : SmoothDoom_VariantsSpawner replaces Zombieman
     // [Blue Shadow] Check to see the if the "Extra Monster Sprites" option is enabled or not and
     // act accordingly.
     TNT1 A 0 NoDelay A_JumpIf(CallACS("RifleDropToggle") == 1, "RifleSpawn")
-	TNT1 A 0 A_JumpIf(CallACS("SpawnVariants") == 1, "VariantSpawn")
-
-  NormalSpawn:
-    // [Blue Shadow] The above option is disabled, so spawn the standard monster.
-    TNT1 A 0 A_SpawnItemEx("SmoothZombieman", 0, 0, 0, 0, 0, 0, 0, SD_VARIANTSPAWNFLAGS)
+    TNT1 A 0 A_SpawnItemEx("SmoothZombieman", 0, 0, 0, 0, 0, 0, 0, SD_VARIANTSPAWNFLAGS, 0, tid)
     Stop
 
   VariantSpawn:
@@ -37,149 +33,80 @@ ACTOR ZombieDice : SmoothDoom_VariantsSpawner replaces Zombieman
     // [Blue Shadow] RandomSpawner would have been "cleaner" to use, but the ambush flag cannot be
     // transferred to the things it spawns if it itself is spawned by a spawner. So we have to do
     // it this way.
-    TNT1 A 0 A_Jump(256, "Standard", "Variant1", "Variant2", "Variant3")
+    TNT1 A 0 A_Jump(256, "Standard", "Variant1")
 
     Standard:
-      TNT1 A 0 A_SpawnItemEx("SmoothZombieman", 0, 0, 0, 0, 0, 0, 0, SD_VARIANTSPAWNFLAGS)
+      TNT1 A 0 A_SpawnItemEx("SmoothZombieman", 0, 0, 0, 0, 0, 0, 0, SD_VARIANTSPAWNFLAGS, 0, tid)
       Stop
     Variant1:
-      TNT1 A 0 A_SpawnItemEx("ZombieV1", 0, 0, 0, 0, 0, 0, 0, SD_VARIANTSPAWNFLAGS)
-      Stop
-    Variant2:
-      TNT1 A 0 A_SpawnItemEx("ZombieV2", 0, 0, 0, 0, 0, 0, 0, SD_VARIANTSPAWNFLAGS)
+      TNT1 A 0 A_SpawnItemEx("ZombieV1", 0, 0, 0, 0, 0, 0, 0, SD_VARIANTSPAWNFLAGS, 0, tid)
       Stop
     Variant3:
-      TNT1 A 0 A_SpawnItemEx("ZombieV3", 0, 0, 0, 0, 0, 0, 0, SD_VARIANTSPAWNFLAGS)
+      TNT1 A 0 A_SpawnItemEx("ZombieV3", 0, 0, 0, 0, 0, 0, 0, SD_VARIANTSPAWNFLAGS, 0, tid)
       Stop
-	  
-	RifleSpawn:
-	  TNT1 A 0 A_JumpIf(CallACS("SpawnVariants") == 1, "RifleVariants")
-	RifleNormal:
-	  TNT1 A 0 A_SpawnItemEx("RifleZombie0", 0, 0, 0, 0, 0, 0, 0, SD_VARIANTSPAWNFLAGS)
+     
+   RifleSpawn:
+     TNT1 A 0 A_JumpIf(CallACS("SpawnVariants") == 1, "RifleVariants")
+   RifleNormal:
+     TNT1 A 0 A_SpawnItemEx("RifleZombie0", 0, 0, 0, 0, 0, 0, 0, SD_VARIANTSPAWNFLAGS, 0, tid)
       Stop
-	RifleVariants:
-	  TNT1 A 0 A_Jump(256, "RifleStandard", "RifleVariant1", "RifleVariant2", "RifleVariant3")
-	  
-	RifleStandard:
-      TNT1 A 0 A_SpawnItemEx("RifleZombie0", 0, 0, 0, 0, 0, 0, 0, SD_VARIANTSPAWNFLAGS)
+   RifleVariants:
+     TNT1 A 0 A_Jump(256, "RifleStandard", "RifleVariant1")
+     
+   RifleStandard:
+      TNT1 A 0 A_SpawnItemEx("RifleZombie0", 0, 0, 0, 0, 0, 0, 0, SD_VARIANTSPAWNFLAGS, 0, tid)
       Stop
     RIfleVariant1:
-      TNT1 A 0 A_SpawnItemEx("RifleZombie1", 0, 0, 0, 0, 0, 0, 0, SD_VARIANTSPAWNFLAGS)
-      Stop
-    RifleVariant2:
-      TNT1 A 0 A_SpawnItemEx("RifleZombie2", 0, 0, 0, 0, 0, 0, 0, SD_VARIANTSPAWNFLAGS)
+      TNT1 A 0 A_SpawnItemEx("RifleZombie1", 0, 0, 0, 0, 0, 0, 0, SD_VARIANTSPAWNFLAGS, 0, tid)
       Stop
     RifleVariant3:
-      TNT1 A 0 A_SpawnItemEx("RifleZombie3", 0, 0, 0, 0, 0, 0, 0, SD_VARIANTSPAWNFLAGS)
+      TNT1 A 0 A_SpawnItemEx("RifleZombie3", 0, 0, 0, 0, 0, 0, 0, SD_VARIANTSPAWNFLAGS, 0, tid)
       Stop
   }
 }
 
-ACTOR SguyDice : SmoothDoom_VariantsSpawner replaces Shotgunguy
+ACTOR SguyDice : SmoothDoom_VariantsSpawner //replaces Shotgunguy
 {
   States
   {
   Spawn:
-    TNT1 A 0 NoDelay A_JumpIf(CallACS("SpawnVariants") == 1, "VariantSpawn")
-
-  NormalSpawn:
-    TNT1 A 0 A_SpawnItemEx("SmoothShotgunguy", 0, 0, 0, 0, 0, 0, 0, SD_VARIANTSPAWNFLAGS)
+    //TNT1 A 0 NoDelay A_JumpIf(CallACS("SpawnVariants") == 1, "VariantSpawn")
+    TNT1 A 0 A_SpawnItemEx("SmoothShotgunguy", 0, 0, 0, 0, 0, 0, 0, SD_VARIANTSPAWNFLAGS, 0, tid)
     Stop
 
   VariantSpawn:
-    TNT1 A 0 A_Jump(256, "Standard", "Variant1", "Variant2")
+    TNT1 A 0 A_Jump(256, "Standard", "Variant1")
 
     Standard:
-      TNT1 A 0 A_SpawnItemEx("SmoothShotgunguy", 0, 0, 0, 0, 0, 0, 0, SD_VARIANTSPAWNFLAGS)
+      TNT1 A 0 A_SpawnItemEx("SmoothShotgunguy", 0, 0, 0, 0, 0, 0, 0, SD_VARIANTSPAWNFLAGS, 0, tid)
       Stop
     Variant1:
-      TNT1 A 0 A_SpawnItemEx("SguyV1", 0, 0, 0, 0, 0, 0, 0, SD_VARIANTSPAWNFLAGS)
+      TNT1 A 0 A_SpawnItemEx("SguyV1", 0, 0, 0, 0, 0, 0, 0, SD_VARIANTSPAWNFLAGS, 0, tid)
       Stop
     Variant2:
-      TNT1 A 0 A_SpawnItemEx("SguyV2", 0, 0, 0, 0, 0, 0, 0, SD_VARIANTSPAWNFLAGS)
+      TNT1 A 0 A_SpawnItemEx("SguyV2", 0, 0, 0, 0, 0, 0, 0, SD_VARIANTSPAWNFLAGS, 0, tid)
       Stop
   }
 }
 
-ACTOR CguyDice : SmoothDoom_VariantsSpawner replaces Chaingunguy
+
+ACTOR ImpDice : SmoothDoom_VariantsSpawner //replaces DoomImp
 {
   States
   {
   Spawn:
-    TNT1 A 0 NoDelay A_JumpIf(CallACS("SpawnVariants") == 1, "VariantSpawn")
-
-  NormalSpawn:
-    TNT1 A 0 A_SpawnItemEx("SmoothChaingunGuy", 0, 0, 0, 0, 0, 0, 0, SD_VARIANTSPAWNFLAGS)
-    Stop
-
+    //TNT1 A 0 NoDelay A_JumpIf(CallACS("SpawnVariants") == 1, "VariantSpawn")
+    TNT1 A 0 A_SpawnItemEx("SmoothDoomImp", 0, 0, 0, 0, 0, 0, 0, SD_VARIANTSPAWNFLAGS, 0, tid)
+	stop 
+	
   VariantSpawn:
-    TNT1 A 0 A_Jump(256, "Standard", "Variant2")
+    TNT1 A 0 A_Jump(256, "Standard")
 
     Standard:
-      TNT1 A 0 A_SpawnItemEx("SmoothChaingunGuy", 0, 0, 0, 0, 0, 0, 0, SD_VARIANTSPAWNFLAGS)
-      Stop
-	Variant1:
-      TNT1 A 0 A_SpawnItemEx("CguyV1", 0, 0, 0, 0, 0, 0, 0, SD_VARIANTSPAWNFLAGS)
+      TNT1 A 0 A_SpawnItemEx("SmoothDoomImp", 0, 0, 0, 0, 0, 0, 0, SD_VARIANTSPAWNFLAGS, 0, tid)
       Stop
     Variant2:
-      TNT1 A 0 A_SpawnItemEx("CguyV2", 0, 0, 0, 0, 0, 0, 0, SD_VARIANTSPAWNFLAGS)
+      TNT1 A 0 A_SpawnItemEx("ImpV2", 0, 0, 0, 0, 0, 0, 0, SD_VARIANTSPAWNFLAGS, 0, tid)
       Stop
-  }
-}
-
-
-ACTOR ImpDice : SmoothDoom_VariantsSpawner replaces DoomImp
-{
-  States
-  {
-  Spawn:
-    TNT1 A 0 NoDelay A_JumpIf(CallACS("SpawnVariants") == 1, "VariantSpawn")
-
-  NormalSpawn:
-    TNT1 A 0 A_SpawnItemEx("SmoothDoomImp", 0, 0, 0, 0, 0, 0, 0, SD_VARIANTSPAWNFLAGS)
-    Stop
-
-  VariantSpawn:
-    TNT1 A 0 A_Jump(256, "Standard", "Variant1", "Variant2")
-
-    Standard:
-      TNT1 A 0 A_SpawnItemEx("SmoothDoomImp", 0, 0, 0, 0, 0, 0, 0, SD_VARIANTSPAWNFLAGS)
-      Stop
-    Variant1:
-      TNT1 A 0 A_SpawnItemEx("ImpV1", 0, 0, 0, 0, 0, 0, 0, SD_VARIANTSPAWNFLAGS)
-      Stop
-    Variant2:
-      TNT1 A 0 A_SpawnItemEx("ImpV2", 0, 0, 0, 0, 0, 0, 0, SD_VARIANTSPAWNFLAGS)
-      Stop
-  }
-}
-
-ACTOR PinkyDice : SmoothDoom_VariantsSpawner replaces Demon
-{
-  States
-  {
-  Spawn:
-    TNT1 A 0 NoDelay A_JumpIf(CallACS("PinkyToggle") == 1, "FastSpawn")
-  NormalSpawn:
-    TNT1 A 0 A_SpawnItemEx("SmoothDemon", 0, 0, 0, 0, 0, 0, 0, SD_VARIANTSPAWNFLAGS)
-    Stop
-  FastSpawn:
-    TNT1 A 0 A_SpawnItemEx("FastSmoothDemon", 0, 0, 0, 0, 0, 0, 0, SD_VARIANTSPAWNFLAGS)
-    Stop
-  }
-}
-
-ACTOR SpectreDice : SmoothDoom_VariantsSpawner replaces Spectre
-{
-  States
-  {
-  Spawn:
-    TNT1 A 0 NoDelay A_JumpIf(CallACS("PinkyToggle") == 1, "FastSpawn")
-  NormalSpawn:
-    TNT1 A 0 A_SpawnItemEx("SmoothSpectre", 0, 0, 0, 0, 0, 0, 0, SD_VARIANTSPAWNFLAGS)
-    Stop
-  FastSpawn:
-    TNT1 A 0 A_SpawnItemEx("FastSmoothSpectre", 0, 0, 0, 0, 0, 0, 0, SD_VARIANTSPAWNFLAGS)
-    Stop
   }
 }

@@ -1,0 +1,18 @@
+ACTOR BulletPuffGibby : SmoothBulletPuff
+{
+  DamageType GibbyHaynes
+ }
+  
+
+ACTOR XtremeSawPuff : SmoothBulletPuff
+{
+	decal bulletchip
+	damagetype "Saw"
+	states
+	{
+		spawn:
+			SPUF ABCD 2 Bright a_spawnitemex("PuffParticles",0,random(-1,1),random(-1,1),random(4,6),random(-4,4),random(0,-5))
+			stop	
+	}
+}
+

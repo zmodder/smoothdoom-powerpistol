@@ -1,0 +1,7 @@
+#library "wepstyle"
+#include "zcommon.acs"
+
+script "SkinToggler" (void)
+{
+    SetResultValue(GetCVar("wetoggle"));
+}

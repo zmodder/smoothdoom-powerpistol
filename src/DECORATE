@@ -1,3 +1,16 @@
+/*IMPORTANT:
+If you want to disable certain parts of the mod, such as 
+monsters or effects, you can do so by deleting or commenting 
+out certain decorate files listed below. This will sever
+the mod's ability to override certain parts of the game,
+and may help Smooth Doom be compatible with other mods.
+
+The decorate files below are organized so that it will
+be easy to tell which files control what aspects of the
+mod.*/
+
+
+//MONSTER DECORATE (comment out to disable Smooth Doom monsters)
 #include "deco/monsters/Zombieman.txt"
 #include "deco/monsters/Shotguy.txt"
 #include "deco/monsters/Chainguy.txt"
@@ -14,9 +27,11 @@
 #include "deco/monsters/Mastermind.txt"
 #include "deco/monsters/Cyberdemon.txt"
 
+//WEAPON DECORATE (comment out to disable Smooth Doom weapons)
 #include "deco/Player/Doomguy.txt"
 #include "deco/Player/Melee.txt"
 #include "deco/Player/Pistol.txt"
+#include "deco/Player/Rifle.txt"
 #include "deco/Player/Shotgun.txt"
 #include "deco/Player/SSG.txt"
 #include "deco/Player/Chaingun.txt"
@@ -24,10 +39,12 @@
 #include "deco/Player/Plasma.txt"
 #include "deco/Player/BFG.txt"
 
+//EFFECTS DECORATE (comment out to disable certain Smooth Doom features)
 #include "deco/Projectiles.txt"
 #include "deco/Particles.txt"
 #include "deco/Gore.txt"
 #include "deco/Decorations.txt"
 #include "deco/Items.txt"
 #include "deco/liquids.txt"
-#include "deco/variants.txt"
+#include "deco/Tools.txt"
+//#include "deco/variants.txt"

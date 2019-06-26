@@ -2,7 +2,7 @@
 //CASINGS//
 ///////////
 
-$volume casings/bullet/bounce 0.4
+$volume casings/bullet/bounce 0.1
 $random Casings/Bullet/bounce { CBNCE1 CBNCE2 CBNCE3 CBNCE4 CBNCE5 CBNCE6 CBNCE7 CBNCE8 CBNCE9 CBNCE10 }
 CBNCE1 CBNCE1
 CBNCE2 CBNCE2
@@ -15,7 +15,7 @@ CBNCE8 CBNCE8
 CBNCE9 CBNCE9
 CBNCE10 CBNCE10
 
-$volume casings/bullet/die 0.4
+$volume casings/bullet/die 0.1
 $random Casings/Bullet/die { CASDIE1 CASDIE2 CASDIE3 CASDIE4 CASDIE5 CASDIE6 CASDIE7 CASDIE8 CASDIE9 CASDIE10 }
 CASDIE1 CASDIE1
 CASDIE2 CASDIE2
@@ -28,19 +28,36 @@ CASDIE8 CASDIE8
 CASDIE9 CASDIE9
 CASDIE10 CASDIE10
 
-$volume casings/shell/die 0.4
+$volume casings/shell/die 0.1
 $random casings/shell/die { SDIE1 SDIE2 SDIE3 }
 SDIE1 SDIE1
 SDIE2 SDIE2
 SDIE3 SDIE3
 
-$volume casings/shell/bounce 0.4
+$volume casings/shell/bounce 0.1
 $random casings/shell/bounce { SBNCE1 SBNCE2 SBNCE3 SBNCE4 SBNCE5 }
 SBNCE1 SBNCE1
 SBNCE2 SBNCE2
 SBNCE3 SBNCE3
 SBNCE4 SBNCE4
 SBNCE5 SBNCE5
+
+////////
+//GORE//
+////////
+
+$random gore/blech {splat1 splat2 splat3 splat4 splat5 splat6 splat7 splat8 }
+splat1 splat1
+splat2 splat2
+splat3 splat3
+splat4 splat4
+splat5 splat5
+splat6 splat6
+splat7 splat7
+splat8 splat8
+
+$volume gore/loudslop 0.7
+gore/LoudSlop LoudSlop
 
 
 ///////////
@@ -78,7 +95,7 @@ $volume world/watersplash 0.6
 $volume dssplash 0.6 
 $volume dssplas2 0.6 
 
-$limit dssplash 4
+$limit dssplash 3
 $limit world/drip 4
 $limit world/watersplash 4
 $limit world/watersplashsmall 4
@@ -87,12 +104,3 @@ $limit world/sludgegloopsmall 4
 $limit world/lavasizzle 4
 $limit world/lavsiz2 4
 $limit world/lavasizzlesmall 4
-
-/////////////////////////////
-// powerpistol modifications
-/////////////////////////////
-weapons/ppstol          d3pistol
-grunt/pattack           dsgnfire
-chainguy/attack         dspistol
-wolfss/attack           dspistol
-spider/attack           d3chngun

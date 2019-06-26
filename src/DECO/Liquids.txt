@@ -5,6 +5,7 @@ actor WaterSplashBase2
   Mass 1
   alpha .6
   Scale 1.1
+  -FLOORCLIP
   +DONTSPLASH
   +NOGRAVITY
   +THRUACTORS
@@ -26,6 +27,7 @@ actor WaterSplashBaseSmall
   Mass 1
   alpha .6
   Scale 0.7
+  -FLOORCLIP
   +DONTSPLASH
   +NOGRAVITY
   +THRUACTORS
@@ -52,6 +54,7 @@ actor smoothbloodsplashbase : BloodSplashBase replaces bloodsplashbase
   Mass 1
   alpha .6
   Scale 1.0
+  -FLOORCLIP
   +THRUACTORS
   +DONTSPLASH
   +NOGRAVITY
@@ -90,6 +93,7 @@ actor nukageSplashBase
   Mass 1
   alpha .6
   Scale 1.0
+  -FLOORCLIP
   +THRUACTORS
   +DONTSPLASH
   +NOGRAVITY
@@ -126,6 +130,7 @@ actor slimeSplashBase
   Mass 1
   alpha .6
   Scale 1.0
+  -FLOORCLIP
   +THRUACTORS
   +DONTSPLASH
   +NOGRAVITY

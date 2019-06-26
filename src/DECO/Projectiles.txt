@@ -4,12 +4,7 @@ ACTOR smoothrevball : revenanttracer replaces revenanttracer
 	states
 	{
 	Death:
-    RBXP A 2 Bright
-    RBXP B 2 Bright
-    RBXP C 2 Bright
-	RBXP D 2 Bright
-	RBXP E 2 bright
-	RBXP F 2 bright
+    RBXP ABCDEF 2 Bright
     Stop
 	}
 }
@@ -21,45 +16,93 @@ ACTOR smoothfatshot : fatshot replaces fatshot
 	{
 	death: 
 	expl a 3 bright
-	expl b 2 bright
-	expl c 2 bright
-	expl d 2 bright
-	expl e 2 bright
-	expl f 2 bright
+	expl bcdef 2 bright
 	stop
 	}
 }
 
 ACTOR smoothbooger : baronball replaces baronball
 {
+	speed 15
 	decal baronscorch
 	states
 	{
+	Spawn:
+		TNT1 a 0 nodelay a_jumpif(callACS("pinkytoggle") ==0, "+2")
+		TNT1 a 0 a_setspeed(20,AAPTR_DEFAULT)
+		BAL7 AB 4 Bright
+		Loop
 	death:
-	boog abcdefgi 2 bright
-	stop
+		boog abcdefgi 2 bright
+		stop
 	}
+}
+
+ACTOR fastbooger : smoothbooger
+{
+speed 18
 }
 
 ACTOR smoothblueplasma : plasmaball replaces plasmaball
 {
-decal doomimpscorch
+decal plasmascorch
 states
 	{
 	spawn:
 		TNT1 A 0
-		TNT1 A 0 A_JumpIf(CallACS("Sparkletoggle")==1, "fancyspawn")
-		BLPL abcdabcd 2 bright
+		TNT1 A 0 A_JumpIf(CallACS("PuffStyle")==1, "fancyspawn")
+		BLPL abcd 2 bright
 		loop
+		
 	fancyspawn:
-		TNT1 A 0
-		BLPL a 2 bright A_SpawnItemEx("BlueSparkle", random(-20, 20), random(-20, 20), random(0, 20))
-		BLPL b 2 bright
-		BLPL c 2 bright A_SpawnItemEx("BlueSparkle", random(-20, 20), random(-20, 20), random(0, 20))
-		BLPL d 2 bright
+		BLPL AABBCCDD 1 bright
+		{
+		a_spawnparticle(
+		/*color*/66ccff, 
+		/*flags*/ +SPF_FULLBRIGHT +SPF_RELATIVE, 
+		/*lifetime*/13,
+		/*size*/random(2,4), 
+		/*angle*/ frandom(0,360), 
+		/*xyz off*/ random(-1,1),random(-1,1),random(-1,1), 
+		/*xyz vel*/ 0, 0, -1, 
+		/*xyz accel*/ 0,0,0,
+		/*start alpha*/ 1.0,
+		/*fadestep*/ -1);
+		
+			a_spawnparticle(
+		/*color*/1a8cff, 
+		/*flags*/ +SPF_FULLBRIGHT +SPF_RELATIVE, 
+		/*lifetime*/16,
+		/*size*/random(2,4), 
+		/*angle*/ frandom(0,360), 
+		/*xyz off*/ random(-1,1),random(-1,1),random(-1,1), 
+		/*xyz vel*/ 0, 0, -1, 
+		/*xyz accel*/ 0,0,0,
+		/*start alpha*/ 1.0,
+		/*fadestep*/ -1);
+		}
 		loop
 	death:
-		SPLS abcdefghijkl 2 bright
+		TNT1 A 0 A_JumpIf(CallACS("PuffStyle")==0, "finish")
+		TNT1 aaa 0 a_spawnitemex("BlueSparkle",0,0,0,random(-2,2),random(-2,2),random(-1,2),random(0,360))
+		TNT1 aaaaaaaaaaaa 0 a_spawnitemex("BlueSparkle",0,0,0,random(3,5),random(-3,3),random(-3,3),random(0,360))
+		TNT1 a 0 a_stopsound(6)		
+		TNT1 aaaaaa 0 bright a_spawnparticle(
+		/*color*/22a6ff, 
+		/*flags*/ +SPF_FULLBRIGHT +SPF_RELATIVE, 
+		/*lifetime*/22,
+		/*size*/random(2,6), 
+		/*angle*/ frandom(0,360), 
+		/*xyz off*/ 0, 0, 0, 
+		/*xyz vel*/ 10, random(1,5), random(-6,6), 
+		/*xyz accel*/ 0, 0, 0,
+		/*start alpha*/ 1.0,
+		/*fadestep*/ -1)
+		TNT1 aaaaa 0 a_spawnitemex("BlueEXparticles",0,0,0,random(-2,2),random(-2,2),random(-1,2),random(0,360))
+		goto finish
+	finish:
+		PLSE ABCD 1 bright
+		PLSE EFGHIJKLMN 2 Bright
 		stop
 	}
 }
@@ -83,12 +126,20 @@ Game Doom
 	States
 	{
 	spawn:
-	BIMP abcdef 2 bright
-	loop
+		IBSP abc 2 bright
+		BIMP abcdef 3 bright
+		goto spawn+3
+	
 	death:
-	IPRD abcdefgh 2 bright
-	stop
+		BAl1 c 4 bright
+		BAL1 defgh 3 bright
+		stop
 	}
+}
+
+ACTOR fastimpball : smoothimpball
+{
+speed 14
 }
 
 ACTOR smoothbabyplas : arachnotronplasma replaces arachnotronplasma
@@ -97,11 +148,46 @@ decal doomimpscorch
 states
 	{
 	spawn:
-	BAPL abcdefgh 2 bright
-	loop
+		TNT1 A 0 nodelay A_JumpIf(CallACS("PuffStyle")==1, "fancyspawn")
+		BAPL abcd 2 bright
+		loop
+	fancyspawn:
+		BAPL abcd 2 bright
+		{
+			a_spawnparticle(
+		/*color*/green, 
+		/*flags*/ +SPF_FULLBRIGHT +SPF_RELATIVE, 
+		/*lifetime*/13,
+		/*size*/random(2,4), 
+		/*angle*/ frandom(0,360), 
+		/*xyz off*/ random(-1,1),random(-1,1),random(-1,1), 
+		/*xyz vel*/ 0, 0, -1, 
+		/*xyz accel*/ 0,0,0,
+		/*start alpha*/ 1.0,
+		/*fadestep*/ -1);
+		
+			a_spawnparticle(
+		/*color*/yellow, 
+		/*flags*/ +SPF_FULLBRIGHT +SPF_RELATIVE, 
+		/*lifetime*/16,
+		/*size*/random(2,4), 
+		/*angle*/ frandom(0,360), 
+		/*xyz off*/ random(-1,1),random(-1,1),random(-1,1), 
+		/*xyz vel*/ 0, 0, -1, 
+		/*xyz accel*/ 0,0,0,
+		/*start alpha*/ 1.0,
+		/*fadestep*/ -1);
+		}
+		loop
 	death:
-	GPLD abcefghijklm 2 bright
-	stop
+		TNT1 A 0 A_JumpIf(CallACS("PuffStyle")==1, "fancydeath")
+		GPLD abcefghijklm 2 bright
+		stop
+	fancydeath:
+		tnt1 aaaaaaa 0 a_spawnitemex("GreenSparkle",0,0,0,random(3,5),random(-3,3),random(-3,3),random(0,360))
+		GPLD abcd 1 bright a_spawnitemex("GreenSparkle",0,0,0,random(3,5),random(-3,3),random(-3,3),random(0,360))
+		GPLD efghijklm 2 bright
+		stop
 	}
 }
 
@@ -111,28 +197,56 @@ decal BFGlightning
 states
 {
 	spawn:
-	TNT1 A 0
-	TNT1 A 0 A_JumpIf(CallACS("Sparkletoggle")==1, "fancyspawn")
-	FUCK abcd 2 bright
-	loop
+		TNT1 A 0
+		TNT1 A 0 A_JumpIf(CallACS("PuffStyle")==1, "fancyspawn")
+		FUCK abcd 2 bright
+		loop
 	fancyspawn:
-	TNT1 A 0
-	FUCK abcd 2 bright A_SpawnItemEx("GreenSparkle", random(-40, 40), random(-40, 40), random(0, 30))
-	loop
+		FUCK aabbccdd 1 bright A_SpawnItemEx("GreenSparkle", random(-40, 40), random(-40, 40), random(0, 30))
+		loop
 	death:
-	TNT1 A 0 A_JumpIf(CallACS("RumbleToggle")==1, "QuakeDeath")
-	BFGB abcde 2 bright
+		TNT1 A 0 A_JumpIf(CallACS("PuffStyle")==1, "fancydeath")
+		TNT1 A 0 A_JumpIf(CallACS("RumbleToggle")==0, "+3")
+		expl d 0 a_quake (3,10,0,750,0)
+		expl d 0 a_quake (1,25,0,1000,0)
+	BFGB abcde 3 bright
 	BFGB f 1 bright
 	BFGB f 3 bright a_BFGspray
 	BFGB ghijk 3 bright
 	stop
-	quakedeath:
-	expl d 0 a_quake (3,10,0,750,0)
-	expl d 0 a_quake (1,25,0,1000,0)
-	BFGB abcde 2 bright
-	BFGB f 1 bright
-	BFGB f 3 bright a_BFGspray
-	BFGB ghijk 3 bright
+	
+	fancydeath:
+		TNT1 A 0 A_JumpIf(CallACS("RumbleToggle")==0, "+3")
+		expl d 0 a_quake (3,10,0,750,0)
+		expl d 0 a_quake (1,25,0,1000,0)
+	TNT1 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa 0 a_spawnparticle(
+			/*color*/yellow, 
+			/*flags*/ +SPF_FULLBRIGHT +SPF_RELATIVE, 
+			/*lifetime*/random(28,40),
+			/*size*/random(4,7), 
+			/*angle*/ frandom(0,360),
+			/*xyz off*/ 0, 0, 0,		
+			/*xyz vel*/ random(-6,6), random(-6,6), random(-3,6), 
+			/*xyz accel*/ 0, 0, 0,
+			/*start alpha*/ 1.0,
+			/*fadestep*/ -1)
+	TNT1 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa 0 a_spawnparticle(
+			/*color*/green, 
+			/*flags*/ +SPF_FULLBRIGHT +SPF_RELATIVE, 
+			/*lifetime*/random(18,35),
+			/*size*/random(4,7), 
+			/*angle*/ frandom(0,360),
+			/*xyz off*/ 0, 0, 0,		
+			/*xyz vel*/ random(-3,3), random(-3,3), random(-1,3), 
+			/*xyz accel*/ 0, 0, 0,
+			/*start alpha*/ 1.0,
+			/*fadestep*/ -1)
+	BFGB abc 3 bright A_SpawnItemEx("GreenGlimmer", random(-50, 50), random(-50, 50), random(-0, 40),random(-2,2),random(-2,2),random(-2,2))
+	BFGB de 3 bright
+	BFGB f 4 bright a_BFGspray
+	BFGB gh 3 bright A_SpawnItemEx("GreenGlimmer", random(-60, 60), random(-60, 60), random(0, 20))
+	BFGB ijk 3 bright
+	TNT1 aaaaaa 3 A_SpawnItemEx("GreenSparkle", random(-70, 70), random(-70, 70), random(0, 50))
 	stop
 	}
 }
@@ -142,7 +256,9 @@ ACTOR smoothBFGextra : BFGextra replaces BFGextra
 states
 	{
 	spawn:
-	BFEX abcdefghijklmno 2 bright
+	BFEX ab 2 bright
+	BFEX cd 2 bright A_SpawnItemEx("GreenGlimmer", random(-60, 60), random(-60, 60), random(0, 20))
+	BFEX efghijklmno 2 bright
 	stop
 	}
 }
@@ -153,13 +269,18 @@ decal CacoScorch
 states
 	{
 	spawn:
-	CABA abcd 2 bright
+	CABA abcd 3 bright
 	loop
 	death:
 	CABX a 4 bright
-	CABX bcdef 2 bright
+	CABX bcdef 3 bright
 	stop
 	}
+}
+
+ACTOR fastcacoball : smoothcacoball
+{
+	speed 15
 }
 
 ACTOR SmoothRocket Replaces Rocket
@@ -172,7 +293,7 @@ ACTOR SmoothRocket Replaces Rocket
 	Damage 20
 	Projectile
 	+RANDOMIZE
-	+ROCKETTRAIL
+	-ROCKETTRAIL
 	+EXTREMEDEATH
 	decal scorch
 	SeeSound "weapons/rocklf"
@@ -181,39 +302,64 @@ ACTOR SmoothRocket Replaces Rocket
 	States
 	{
 	Spawn:
-		MISL A 1 Bright
-		Loop
+		MISL A 1 bright 
+		TNT1 a 0 a_jumpif(CallACS("PuffStyle")==0, +2)
+		TNT1 a 0 a_spawnitemex("smoothrockettrail",-8,random(-3,3),random(2,6),0,0,0)
+		TNT1 a 0
+		loop
+		
 	Death:
-		TNT1 A 0 A_JumpIf(CallACS("DukeToggle")==1, "dukedeath")
-		TNT1 A 0 A_JumpIf(CallACS("RumbleToggle")==1, "QuakeDeath")
+		TNT1 A 0 A_JumpIf(CallACS("RumbleToggle")==0, "+3")
+		TNT1 A 0 a_quake (2,7,0,600,0)
+		TNT1 A 0 a_quake (1,10,0,1000,0)
+
+		TNT1 A 0 A_JumpIf(CallACS("PuffStyle")==0, "finish")		
+		TNT1 aaaaaaaaaaaaaaaaaaaa 0 a_spawnitemex("ExplosionParticles",random(-1,1),random(-1,1),random(-1,1),random(-4,4),random(-4,4),random(0,6),random(0,360))
+			
+			//yellow particles
+			TNT1 aaaaaaaaaaaaaaaaaaaaaaaaaa 0 a_spawnparticle(
+			/*color*/yellow, 
+			/*flags*/ +SPF_FULLBRIGHT +SPF_RELATIVE, 
+			/*lifetime*/random(10,18),
+			/*size*/random(3,6), 
+			/*angle*/ frandom(0,360),
+			/*xyz off*/ random(-2,2), random(-2,2), random(-2,2), 
+			/*xyz vel*/ random(4,8), random(4,8), random(-5,10), 
+			/*xyz accel*/ 0, 0, 0,
+			/*start alpha*/ 1.0,
+			/*fadestep*/ -1)
+		
+			//orange particles
+			TNT1 aaaaaaaaa 0 a_spawnparticle(
+			/*color*/ffac00, 
+			/*flags*/ +SPF_FULLBRIGHT +SPF_RELATIVE, 
+			/*lifetime*/random(32,37),
+			/*size*/random(5,7), 
+			/*angle*/ frandom(0,360),
+			/*xyz off*/ random(-2,2), random(-2,2), random(-2,2), 
+			/*xyz vel*/ random(1,3), random(1,3), random(-2,4), 
+			/*xyz accel*/ 0, 0, 0,
+			/*start alpha*/ 1.0,
+			/*fadestep*/ -1)
+		
+			//red particles
+			TNT1 aaaaaaaaaaaaaaaaaaaaaaa 0 a_spawnparticle(
+			/*color*/ff2f00, 
+			/*flags*/ +SPF_FULLBRIGHT +SPF_RELATIVE, 
+			/*lifetime*/65,
+			/*size*/random(3,4), 
+			/*angle*/ frandom(0,360),
+			/*xyz off*/ random(-2,2), random(-2,2), random(-2,2), 
+			/*xyz vel*/ random(1,2), random(1,2), random(0,1), 
+			/*xyz accel*/ 0, 0, 0,
+			/*start alpha*/ 0.8,
+			/*fadestep*/ -1)
+			goto finish
+			
+	Finish:
 		expl A 5 Bright A_Explode
-		expl BCDEF 3 Bright A_SpawnItemEx("RocketSmokeTrail", random(-40, 40), random(-40, 40), random(0, 30))
-		TNT1 AAAA 0 A_SpawnItemEx("RocketSmokeTrail", random(-40, 40), random(-40, 40), random(0, 30))
-		Stop
-	QuakeDeath:
-		TNT1 A 0 A_JumpIf(CallACS("DukeToggle")==1, "dukedeath")
-		expl A 5 Bright A_Explode
-		expl d 0 a_quake (3,10,0,750,0)
-		expl d 0 a_quake (1,25,0,1000,0)
-		expl BCDEF 3 Bright A_SpawnItemEx("RocketSmokeTrail", random(-40, 40), random(-40, 40), random(0, 30))
-		TNT1 AAAA 0 A_SpawnItemEx("RocketSmokeTrail", random(-40, 40), random(-40, 40), random(0, 30))
-		Stop
-	DukeDeath:
-		TNT1 A 0 A_JumpIf(CallACS("RumbleToggle")==1, "quakedukedeath")
-		rexp o 2 Bright A_Explode
-		rexp ABCDEFGHIJKL 2 Bright
-		rexp M 2 A_SpawnItemEx("RocketSmokeTrail", random(-40, 40), random(-40, 40), random(0, 30))
-		rexp N 2 A_SpawnItemEx("RocketSmokeTrail", random(-40, 40), random(-40, 40), random(0, 30))
-		TNT1 AAAA 0 A_SpawnItemEx("RocketSmokeTrail", random(-40, 40), random(-40, 40), random(0, 30))
-		Stop
-	QuakeDukeDeath:
-		rexp o 2 Bright A_Explode
-		expl d 0 a_quake (3,10,0,750,0)
-		expl d 0 a_quake (1,25,0,1000,0)
-		rexp ABCDEFGHIJKL 2 Bright
-		rexp M 2 A_SpawnItemEx("RocketSmokeTrail", random(-40, 40), random(-40, 40), random(0, 30))
-		rexp N 2 A_SpawnItemEx("RocketSmokeTrail", random(-40, 40), random(-40, 40), random(0, 30))
-		TNT1 AAAA 0 A_SpawnItemEx("RocketSmokeTrail", random(-40, 40), random(-40, 40), random(0, 30))
+		expl BCDEF 3 Bright A_SpawnItemEx("SmoothSmoke", random(-40, 40), random(-40, 40), random(0, 30))
+		TNT1 AAAA 0 A_SpawnItemEx("SmoothSmoke", random(-40, 40), random(-40, 40), random(0, 30))
 		Stop
 	}
 }

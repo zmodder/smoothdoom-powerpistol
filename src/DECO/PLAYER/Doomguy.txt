@@ -10,16 +10,6 @@ ACTOR PerkDPlayer : Doomplayer replaces Doomplayer
 	Player.WeaponSlot 5, PerkRocketLauncher
 	Player.WeaponSlot 6, BloxPlasmaRifle
 	Player.WeaponSlot 7, Z86BFG9000
-	States
-	{
-	Death:
-		PD71 A 3
-		PD71 B 3 A_PlayerScream
-		PD71 C 3 A_NoBlocking
-		PD71 DEFGH 3
-		PD71 I -1
-		Stop	
-	}
 }
 
 ACTOR PerkBerserk : Berserk replaces Berserk

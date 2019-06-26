@@ -1,5 +1,5 @@
 texture optional M_SKULL1
-	pic NEWSKULA tics 3
+	pic NEWSKULA tics 12
 	pic NEWSKULB tics 3
 	pic NEWSKULC tics 3
 	pic NEWSKULD tics 3

@@ -1,0 +1,7 @@
+#library "ChainsawGib"
+#include "zcommon.acs"
+
+script "ChainsawGib" (void)
+{
+    SetResultValue(GetCVar("SawGibToggle"));
+}
