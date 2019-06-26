@@ -1,6 +1,9 @@
 all : smoothdoom-powerpistol.pk3
-smoothdoom-powerpistol.pk3 : mod.py src/**/*
+smoothdoom-powerpistol.pk3 : mod.py smoothdoom/**/* additional-files/**/*
+	rm -r *.pk3 build/ 2> /dev/null || echo
+	cp -r smoothdoom build
+	cp -r additional-files/* build/
 	./mod.py
-	cd src && zip -r ../smoothdoom-powerpistol.pk3 .
+	cd build && zip -r ../smoothdoom-powerpistol.pk3 .
 clean :
-	rm *.pk3
+	rm -r *.pk3 build/ 2> /dev/null || echo

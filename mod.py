@@ -1,10 +1,12 @@
 #!/usr/bin/python3
 
+import os
 import re
 
+os.rename('build/DECO/PLAYER/Pistol.txt', 'build/DECO/PLAYER/Pistol.txt.orig')
 a_firepistol_pattern = re.compile(r'(\s*)(\w+) (\w+) (\d+) A_FirePistol')
-with open('src/DECO/PLAYER/Pistol.txt.original') as in_file:
-    with open('src/DECO/PLAYER/Pistol.txt', 'w') as out_file:
+with open('build/DECO/PLAYER/Pistol.txt.orig') as in_file:
+    with open('build/DECO/PLAYER/Pistol.txt', 'w') as out_file:
         for line_terminated in in_file:
             line = line_terminated.rstrip('\n')
             m = a_firepistol_pattern.match(line)
@@ -29,9 +31,10 @@ with open('src/DECO/PLAYER/Pistol.txt.original') as in_file:
                 out_file.write(line)
                 out_file.write('\n')
 
+os.rename('build/DECO/MONSTERS/Zombieman.txt', 'build/DECO/MONSTERS/Zombieman.txt.orig')
 a_posattack_pattern = re.compile(r'(.*)A_PosAttack')
-with open('src/DECO/MONSTERS/Zombieman.txt.original') as in_file:
-    with open('src/DECO/MONSTERS/Zombieman.txt', 'w') as out_file:
+with open('build/DECO/MONSTERS/Zombieman.txt.orig') as in_file:
+    with open('build/DECO/MONSTERS/Zombieman.txt', 'w') as out_file:
         for line_terminated in in_file:
             line = line_terminated.rstrip('\n')
             m = a_posattack_pattern.match(line)
@@ -44,3 +47,11 @@ with open('src/DECO/MONSTERS/Zombieman.txt.original') as in_file:
             else:
                 out_file.write(line)
                 out_file.write('\n')
+
+with open('build/SNDINFO', 'a') as f:
+    f.write('\n')
+    f.write('weapons/ppstol          SOUNDS/D3PISTOL\n')
+    f.write('grunt/attack            SOUNDS/DSGNFIRE\n')
+    f.write('chainguy/attack         DSPISTOL\n')
+    f.write('wolfss/attack           DSPISTOL\n')
+    f.write('spider/attack           SOUNDS/D3CHNGUN\n')
