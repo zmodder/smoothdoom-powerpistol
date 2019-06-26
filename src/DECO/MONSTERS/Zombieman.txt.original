@@ -110,7 +110,6 @@ ACTOR SmoothZombieman : Zombieman
 
 ACTOR ZombieV1 : SmoothZombieMan //Helmet
 {
-        AttackSound "grunt/pattack"
 	states
 	{
 	Spawn:
@@ -206,7 +205,6 @@ ACTOR ZombieV1 : SmoothZombieMan //Helmet
 
 ACTOR ZombieV2 : SmoothZombieMan //Jaw
 {
-        AttackSound "grunt/pattack"
 	states
 	{
 	Spawn:
@@ -312,7 +310,6 @@ ACTOR ZombieV2 : SmoothZombieMan //Jaw
 
 ACTOR Zombiev3 : SmoothZombieMan //Head
 {
-        AttackSound "grunt/pattack"
 	states
 	{
 	Spawn:
