@@ -25,7 +25,7 @@ with open('build/DECO/PLAYER/Pistol.txt.orig') as in_file:
                 out_file.write('%s%s %s %d %s\n' % (
                     indent, sprite, frame, tick,
                     'A_PlaySound ("weapons/ppstol", CHAN_WEAPON)'))
-                out_file.write('%s%s %s %d %s\n' % (indent, sprite, frame, tick + 6,
+                out_file.write('%s%s %s %d %s\n' % (indent, sprite, frame, tick,
                     'A_GunFlash'))
             else:
                 out_file.write(line)
